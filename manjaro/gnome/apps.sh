@@ -48,8 +48,8 @@ pamac install --no-confirm shotwell
 # echo -e "\nInstalling Microsoft Edge"
 # pamac install --no-confirm microsoft-edge-stable-bin
 
-echo -e "\nInstalling  Firefox"
-pamac install --no-confirm firefox-appmenu-bin
+# echo -e "\nInstalling  Firefox"
+# pamac install --no-confirm firefox-appmenu-bin
 
 echo -e "\nInstalling  Google Chrome"
 pamac install --no-confirm google-chrome
@@ -78,7 +78,7 @@ pamac install --no-confirm postman-bin
 echo -e "\nInstalling Spotify"
 echo -e "If there's an issue when installing from CLI, install spotify from software center instead"
 curl -sS https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | gpg --import
-pamac install --no-confirm spotify
+# pamac install --no-confirm spotify
 
 echo -e "\nInstalling OBS Studio"
 pamac install --no-confirm obs-studio
@@ -104,11 +104,11 @@ pamac install --no-confirm gimp
 # echo -e "\nInstalling Davinci Resolve"
 # pamac install --no-confirm davinci-resolve
 
-echo -e "\nInstalling Netflix"
-pamac install --no-confirm netflix-nativefier
+# echo -e "\nInstalling Netflix"
+# pamac install --no-confirm netflix-nativefier
 
-echo -e "\nInstalling WhatsApp"
-pamac install --no-confirm whatsapp-nativefier
+# echo -e "\nInstalling WhatsApp"
+# pamac install --no-confirm whatsapp-nativefier
 
 echo -e "\nInstalling Discord"
 pamac install --no-confirm discord
