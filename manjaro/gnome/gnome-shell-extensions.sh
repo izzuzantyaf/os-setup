@@ -19,3 +19,6 @@ pamac install --no-confirm gnome-shell-extension-status-area-horizontal-spacing
 
 echo -e "\nInstalling Add Username to Top Panel"
 echo -e "Install manually from https://extensions.gnome.org/extension/1108/add-username-to-top-panel/"
+
+echo -e "\nInstalling Logo Menu"
+echo -e "Install manually from https://extensions.gnome.org/extension/4451/logo-menu/"
