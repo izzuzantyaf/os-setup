@@ -6,7 +6,7 @@ echo -e "\nInstalling WhiteSur Theme"
 git clone https://github.com/vinceliuice/WhiteSur-gtk-theme.git ./themes/WhiteSur/gtk
 cd ./themes/WhiteSur/gtk
 ./install.sh -s 220 -p 75 -i manjaro -P smaller -m --round
-./tweaks.sh -d
+./tweaks.sh -d -f
 cd ../../..
 
 echo -e "\nInstalling WhiteSur Icons"
