@@ -21,7 +21,7 @@ pamac install --no-confirm composer
 echo -e "\nInstalling Yarn"
 pamac install --no-confirm yarn
 
-echo -e "\nInstalling Node.js, NPM, and some global packahes"
+echo -e "\nInstalling Node.js, NPM"
 pamac install --no-confirm nodejs npm
 
 echo -e "\nInstalling Python"
@@ -29,9 +29,6 @@ pamac install --no-confirm python
 
 echo -e "\nInstalling Github CLI"
 pamac install --no-confirm github-cli
-
-echo -e "\nInstalling Heroku CLI"
-pamac install --no-confirm heroku-cli-bin
 
 echo -e "\nInstalling Kvantum Manager"
 pamac install --no-confirm kvantum
