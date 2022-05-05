@@ -64,7 +64,7 @@ echo -e "\nInstalling Visual Studio Code"
 pamac install --no-confirm visual-studio-code-bin
 
 # echo -e "\nInstalling Responsively"
-# pamac install --no-confirm responsively
+pamac install --no-confirm responsively
 
 echo -e "\nInstalling Mongodb Compass"
 pamac install --no-confirm mongodb-compass
