@@ -48,7 +48,7 @@ sudo apt-get install -y nodejs
 sudo apt -y install npm
 
 echo -e "\nInstalling Python"
-sudo apt -y install python
+sudo apt -y install python3
 
 echo -e "\nInstalling Github CLI"
 curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
@@ -110,7 +110,7 @@ tar -xzf postman.tar.gz
 sudo rm -rf /opt/Postman
 sudo mv Postman /opt/Postman
 sudo ln -s /opt/Postman/Postman /usr/bin/postman
-cat > ~/.local/share/applications/postman.desktop <<EOL
+cat > ./.local/share/applications/postman.desktop <<EOL
 [Desktop Entry]
 Encoding=UTF-8
 Name=Postman
