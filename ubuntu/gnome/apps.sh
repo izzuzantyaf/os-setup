@@ -30,6 +30,11 @@ sudo apt -y install neofetch
 
 echo -e "\nInstalling Git"
 sudo apt -y install git
+git config --global user.name "Izzu Zantya Fawwas"
+git config --global user.email izzuzantyaf@gmail.com
+
+echo -e "\nInstalling Heroku CLI"
+curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
 
 echo -e "\nInstalling PHP"
 sudo apt -y install php
