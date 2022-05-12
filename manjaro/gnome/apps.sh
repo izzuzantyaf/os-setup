@@ -72,7 +72,7 @@ pamac install --no-confirm postman-bin
 echo -e "\nInstalling Spotify"
 echo -e "If there's an issue when installing from CLI, install spotify from software center instead"
 curl -sS https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | gpg --import
-pamac install --no-confirm spotify
+pamac build --no-confirm spotify
 
 echo -e "\nInstalling OBS Studio"
 pamac install --no-confirm obs-studio
