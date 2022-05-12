@@ -36,9 +36,6 @@ pamac install --no-confirm heroku-cli-bin
 echo -e "\nInstalling Kvantum Manager"
 pamac install --no-confirm kvantum
 
-echo -e "\nInstalling Bitwarden"
-pamac install --no-confirm bitwarden
-
 echo -e "\nInstalling Etcher"
 pamac install --no-confirm etcher
 
