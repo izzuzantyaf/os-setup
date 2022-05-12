@@ -67,7 +67,7 @@ curl -1sLf \
    'https://dl.cloudsmith.io/public/balena/etcher/setup.deb.sh' \
    | sudo -E bash
 sudo apt-get update
-sudo apt-get install balena-etcher-electron
+sudo apt-get -y install balena-etcher-electron
 
 echo -e "\nInstalling Shotwell"
 sudo apt -y install shotwell
@@ -111,11 +111,11 @@ sudo apt -y install ./packages/mongodb-compass.deb
 echo -e "\nInstalling Postman"
 # snap install postman
 wget -c -O ./packages/postman.tar.gz https://dl.pstmn.io/download/latest/linux64
-cd packages
-tar -xzf postman.tar.gz
+tar -xzf ./packages/postman.tar.gz
 sudo rm -rf /opt/Postman
 sudo mv Postman /opt/Postman
 sudo ln -s /opt/Postman/Postman /usr/bin/postman
+cd ../../..
 cat > ./.local/share/applications/postman.desktop <<EOL
 [Desktop Entry]
 Encoding=UTF-8
@@ -128,6 +128,7 @@ Terminal=false
 Type=Application
 Categories=Development;
 EOL
+cd os-setup/ubuntu/gnome
 
 echo -e "\nInstalling Spotify"
 curl -sS https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | sudo apt-key add - 

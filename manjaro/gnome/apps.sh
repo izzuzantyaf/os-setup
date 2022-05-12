@@ -30,6 +30,9 @@ pamac install --no-confirm python
 echo -e "\nInstalling Github CLI"
 pamac install --no-confirm github-cli
 
+echo -e "\nInstalling Heroku CLI"
+pamac install --no-confirm heroku-cli-bin
+
 echo -e "\nInstalling Kvantum Manager"
 pamac install --no-confirm kvantum
 
@@ -51,19 +54,16 @@ pamac install --no-confirm shotwell
 echo -e "\nInstalling  Google Chrome"
 pamac install --no-confirm google-chrome
 
-echo -e "\nInstalling  Onlyoffice"
-pamac install --no-confirm onlyoffice-desktopeditors
+# echo -e "\nInstalling  Onlyoffice"
+# pamac install --no-confirm onlyoffice-desktopeditors
 
-# echo -e "\nInstalling Libreoffice"
-# pamac install --no-confirm libreoffice-fresh
-
-echo -e "\nInstalling Notion"
-pamac install --no-confirm notion-app
+echo -e "\nInstalling Libreoffice"
+pamac install --no-confirm libreoffice-fresh
 
 echo -e "\nInstalling Visual Studio Code"
 pamac install --no-confirm visual-studio-code-bin
 
-# echo -e "\nInstalling Responsively"
+echo -e "\nInstalling Responsively"
 pamac install --no-confirm responsively
 
 echo -e "\nInstalling Mongodb Compass"
@@ -75,7 +75,7 @@ pamac install --no-confirm postman-bin
 echo -e "\nInstalling Spotify"
 echo -e "If there's an issue when installing from CLI, install spotify from software center instead"
 curl -sS https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | gpg --import
-# pamac install --no-confirm spotify
+pamac install --no-confirm spotify
 
 echo -e "\nInstalling OBS Studio"
 pamac install --no-confirm obs-studio
@@ -100,12 +100,6 @@ pamac install --no-confirm gimp
 
 # echo -e "\nInstalling Davinci Resolve"
 # pamac install --no-confirm davinci-resolve
-
-# echo -e "\nInstalling Netflix"
-# pamac install --no-confirm netflix-nativefier
-
-# echo -e "\nInstalling WhatsApp"
-# pamac install --no-confirm whatsapp-nativefier
 
 echo -e "\nInstalling Discord"
 pamac install --no-confirm discord
