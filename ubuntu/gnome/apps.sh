@@ -30,8 +30,6 @@ sudo apt -y install neofetch
 
 echo -e "\nInstalling Git"
 sudo apt -y install git
-git config --global user.name "Izzu Zantya Fawwas"
-git config --global user.email izzuzantyaf@gmail.com
 
 echo -e "\nInstalling Heroku CLI"
 curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
@@ -50,6 +48,7 @@ sudo apt -y install yarn
 
 echo -e "\nInstalling Node.js, NPM"
 curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+sudo apt update
 sudo apt-get install -y nodejs
 sudo apt -y install npm
 
@@ -68,9 +67,6 @@ curl -1sLf \
    | sudo -E bash
 sudo apt-get update
 sudo apt-get -y install balena-etcher-electron
-
-echo -e "\nInstalling Shotwell"
-sudo apt -y install shotwell
 
 # echo -e "\nInstalling Microsoft Edge"
 # curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
@@ -155,12 +151,3 @@ sudo apt -y install gimp
 
 # echo -e "\nInstalling Kdenlive"
 # sudo apt -y install kdenlive
-
-echo -e "\nInstalling Discord"
-deb-get install discord
-
-echo -e "\nInstalling Zoom"
-deb-get install zoom
-
-echo -e "\nInstalling Microsoft Teams"
-deb-get install teams
