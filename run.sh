@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# Uncomment one of the following lines to install the corresponding app
-
 echo '
 1. Manjaro (GNOME)
 2. Ubuntu (GNOME)
