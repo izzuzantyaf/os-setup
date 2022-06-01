@@ -10,12 +10,6 @@ mkdir packages
 echo -e "\nInstalling CURL"
 sudo apt -y install curl
 
-echo -e "\nInstalling Pacstall"
-sudo bash -c "$(curl -fsSL https://git.io/JsADh || wget -q https://git.io/JsADh -O -)"
-
-echo -e "\nInstalling deb-get"
-curl -sL https://raw.githubusercontent.com/wimpysworld/deb-get/main/deb-get | sudo -E bash -s install deb-get
-
 echo -e "\nInstalling Grub Customizer"
 sudo apt -y install grub-customizer
 
@@ -31,6 +25,12 @@ sudo apt -y install neofetch
 echo -e "\nInstalling Git"
 sudo apt -y install git
 
+echo -e "\nInstalling Github CLI"
+curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+sudo apt update
+sudo sudo apt -y install gh
+
 echo -e "\nInstalling Heroku CLI"
 curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
 
@@ -40,26 +40,20 @@ sudo apt -y install php
 echo -e "\nInstalling Composer"
 sudo apt -y install composer
 
-echo -e "\nInstalling Yarn"
-curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-sudo apt update
-sudo apt -y install yarn
-
 echo -e "\nInstalling Node.js, NPM"
 curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
 sudo apt update
 sudo apt-get install -y nodejs
 sudo apt -y install npm
 
+echo -e "\nInstalling Yarn"
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+sudo apt update
+sudo apt -y install yarn
+
 echo -e "\nInstalling Python"
 sudo apt -y install python3
-
-echo -e "\nInstalling Github CLI"
-curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
-sudo apt update
-sudo sudo apt -y install gh
 
 echo -e "\nInstalling Etcher"
 curl -1sLf \
