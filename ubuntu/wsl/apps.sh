@@ -49,3 +49,11 @@ sudo apt -y install yarn
 
 echo -e "\nInstalling Python"
 sudo apt -y install python3
+
+echo -e "\nInstalling MongoDB"
+sudo apt -y install gnupg
+wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | sudo apt-key add -
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/6.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
+sudo apt update
+sudo apt -y install mongodb-org
+
