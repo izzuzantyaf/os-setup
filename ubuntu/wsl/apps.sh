@@ -26,8 +26,8 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githu
 sudo apt update
 sudo sudo apt -y install gh
 
-echo -e "\nInstalling Heroku CLI"
-curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
+#echo -e "\nInstalling Heroku CLI"
+#curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
 
 echo -e "\nInstalling PHP"
 sudo apt -y install php
