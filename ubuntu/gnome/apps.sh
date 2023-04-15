@@ -10,12 +10,6 @@ mkdir packages
 echo -e "\nInstalling CURL"
 sudo apt -y install curl
 
-echo -e "\nInstalling Grub Customizer"
-sudo apt -y install grub-customizer
-
-echo -e "\nInstalling RPM"
-sudo apt -y install rpm
-
 echo -e "\nInstalling Alien"
 sudo apt -y install alien
 
@@ -45,6 +39,9 @@ curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
 sudo apt update
 sudo apt-get install -y nodejs
 sudo apt -y install npm
+
+echo -e "\nInstalling fnm"
+curl -fsSL https://fnm.vercel.app/install | bash
 
 echo -e "\nInstalling Yarn"
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
@@ -90,13 +87,9 @@ sudo sudo apt -y install apt-transport-https
 sudo apt update
 sudo sudo apt -y install code # or code-insiders
 
-echo -e "\nInstalling Responsively"
-wget -c -O ./packages/responsively.rpm https://github.com/responsively-org/responsively-app/releases/download/v0.18.0/Responsively-App-0.18.0.x86_64.rpm
-sudo alien -i ./packages/responsively.rpm
-
-echo -e "\nInstalling Mongodb Compass"
-wget -c -O ./packages/mongodb-compass.deb https://downloads.mongodb.com/compass/mongodb-compass_1.31.1_amd64.deb
-sudo apt -y install ./packages/mongodb-compass.deb
+echo -e "\nInstalling DBeaver"
+wget -c -O ./packages/dbeaver-ce.deb https://dbeaver.io/files/dbeaver-ce_latest_amd64.deb
+sudo apt -y install ./packages/dbeaver-ce.deb
 
 echo -e "\nInstalling Postman"
 # snap install postman
@@ -120,11 +113,6 @@ Categories=Development;
 EOL
 cd os-setup/ubuntu/gnome
 
-echo -e "\nInstalling Spotify"
-curl -sS https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | sudo apt-key add - 
-echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
-sudo apt-get update && sudo apt-get install spotify-client
-
 echo -e "\nInstalling OBS Studio"
 sudo apt -y install obs-studio
 
@@ -145,3 +133,35 @@ sudo apt -y install gimp
 
 # echo -e "\nInstalling Kdenlive"
 # sudo apt -y install kdenlive
+
+echo -e "\nInstalling Docker"
+sudo apt-get remove docker docker-engine docker.io containerd runc
+sudo apt-get update
+sudo apt-get install \
+    ca-certificates \
+    curl \
+    gnupg
+sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+sudo chmod a+r /etc/apt/keyrings/docker.gpg
+echo \
+  "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+sudo docker run hello-world
+
+echo -e "\nInstalling Docker-based packages"
+cd ../..
+docker compose up -d --build
+cd ubuntu/gnome
+
+echo -e "\n"
+echo -e "\nInstall the rest of the apps manually"
+echo -e "\n1. Discord ==> https://discord.com/download"
+echo -e "\n2. Zoom ==> https://zoom.us/download"
+echo -e "\n3. Spotify ==> https://www.spotify.com/us/download/linux/"
+echo -e "\n4. MongoDB Compass ==> https://www.mongodb.com/try/download/compass"
+echo -e "\n5. Responsively ==> https://responsively.app/download"
+echo -e "\n6. Termius ==> https://termius.com/download/linux"
