@@ -25,8 +25,8 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githu
 sudo apt update
 sudo sudo apt -y install gh
 
-echo -e "\nInstalling Heroku CLI"
-curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
+# echo -e "\nInstalling Heroku CLI"
+# curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
 
 echo -e "\nInstalling PHP"
 sudo apt -y install php
@@ -150,6 +150,8 @@ echo \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt-get -y update
 sudo apt-get -y install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+sudo groupadd docker
+sudo usermod -aG docker $USER
 sudo docker run hello-world
 
 echo -e "\nInstalling Docker-based packages"
