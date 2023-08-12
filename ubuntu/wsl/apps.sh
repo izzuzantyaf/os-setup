@@ -8,9 +8,6 @@ echo -e "\n=== Installing My Daily Apps ==="
 echo -e "\nInstalling CURL"
 sudo apt -y install curl
 
-echo -e "\nInstalling RPM"
-sudo apt -y install rpm
-
 echo -e "\nInstalling Alien"
 sudo apt -y install alien
 
@@ -41,19 +38,34 @@ sudo apt update
 sudo apt -y install nodejs
 sudo apt -y install npm
 
+echo -e "\nInstalling fnm"
+curl -fsSL https://fnm.vercel.app/install | bash
+
 echo -e "\nInstalling Yarn"
-curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-sudo apt update
-sudo apt -y install yarn
+sudo npm install --global yarn
+
+echo -e "\nInstalling pnpm"
+sudo npm install -g pnpm
 
 echo -e "\nInstalling Python"
 sudo apt -y install python3
 
-echo -e "\nInstalling MongoDB"
-sudo apt -y install gnupg
-wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | sudo apt-key add -
-echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/6.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
-sudo apt update
-sudo apt -y install mongodb-org
-
+echo -e "\nInstalling Docker"
+sudo apt-get -y remove docker docker-engine docker.io containerd runc
+sudo apt-get -y update
+sudo apt-get -y install \
+    ca-certificates \
+    curl \
+    gnupg
+sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+sudo chmod a+r /etc/apt/keyrings/docker.gpg
+echo \
+  "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get -y update
+sudo apt-get -y install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+sudo groupadd docker
+sudo usermod -aG docker $USER
+sudo docker run hello-world
