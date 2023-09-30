@@ -88,8 +88,11 @@ sudo apt update
 sudo sudo apt -y install code # or code-insiders
 
 echo -e "\nInstalling DBeaver"
-wget -c -O ./packages/dbeaver-ce.deb https://dbeaver.io/files/dbeaver-ce_latest_amd64.deb
-sudo apt -y install ./packages/dbeaver-ce.deb
+# wget -c -O ./packages/dbeaver-ce.deb https://dbeaver.io/files/dbeaver-ce_latest_amd64.deb
+# sudo apt -y install ./packages/dbeaver-ce.deb
+sudo add-apt-repository ppa:serge-rider/dbeaver-ce
+sudo apt-get update
+sudo apt-get -y install dbeaver-ce
 
 echo -e "\nInstalling Postman"
 # snap install postman
