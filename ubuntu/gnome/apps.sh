@@ -44,10 +44,10 @@ echo -e "\nInstalling fnm"
 curl -fsSL https://fnm.vercel.app/install | bash
 
 echo -e "\nInstalling Yarn"
-curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-sudo apt update
-sudo apt -y install yarn
+sudo npm install --global yarn
+
+echo -e "\nInstalling pnpm"
+sudo npm install -g pnpm
 
 echo -e "\nInstalling Python"
 sudo apt -y install python3

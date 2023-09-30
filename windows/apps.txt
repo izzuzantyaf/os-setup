@@ -1,0 +1,98 @@
+# Scoop
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+irm get.scoop.sh | iex
+
+# Git
+scoop install git
+
+# Add scoop bucket
+scoop bucket add main
+scoop bucket add extras
+
+# Refresh PowerShell
+. $profile
+
+# Node.js
+scoop install main/nodejs-lts
+
+# fnm
+scoop install main/fnm
+
+# Yarn
+npm install --global yarn
+
+# pnpm
+npm install -g pnpm
+
+# Etcher
+# scoop install extras/etcher
+winget install Balena.Etcher --accept-source-agreements --accept-package-agreements
+
+# Visual Studio Code
+# scoop install extras/vscode
+winget install Microsoft.VisualStudioCode --accept-source-agreements --accept-package-agreements
+
+# DBeaver
+# scoop install extras/dbeaver
+winget install 9PNKDR50694P --accept-source-agreements --accept-package-agreements
+
+# Postman
+# scoop install extras/postman
+winget install Postman.Postman --accept-source-agreements --accept-package-agreements
+
+# OBS Studio
+# winget install XPFFH613W8V6LV --accept-source-agreements --accept-package-agreements
+scoop install obs-studio
+
+# Telegram
+winget install Telegram.TelegramDesktop --accept-source-agreements --accept-package-agreements
+
+# Audacity
+# winget install XP8K0J757HHRDW --accept-source-agreements --accept-package-agreements
+scoop install audacity
+
+# Docker
+winget install Docker.DockerDesktop --accept-source-agreements --accept-package-agreements
+
+# Discord
+winget install XPDC2RH70K22MN --accept-source-agreements --accept-package-agreements
+
+# Zoom
+winget install XP99J3KP4XZ4VV --accept-source-agreements --accept-package-agreements
+
+# Spotify
+winget install 9NCBCSZSJRSB --accept-source-agreements --accept-package-agreements
+
+# MongoDB Compass
+scoop install extras/mongodb-compass
+
+# Termius
+winget install 9NK1GDVPX09V --accept-source-agreements --accept-package-agreements
+
+# Foxit Reader
+# winget install XPFCG5NRKXQPKT --accept-source-agreements --accept-package-agreements
+scoop install foxit-reader
+
+# Figma
+winget install Figma.Figma --accept-source-agreements --accept-package-agreements
+# scoop install extras/figma
+
+# CCleaner
+winget install XPFCWP0SQWXM3V --accept-source-agreements --accept-package-agreements
+
+# Whatsapp
+winget install 9NKSQGP7F2NH --accept-source-agreements --accept-package-agreements
+
+# Netflix
+winget install 9WZDNCRFJ3TJ --accept-source-agreements --accept-package-agreements
+
+# Logitech Camera Setting
+winget install Logitech.CameraSettings --accept-source-agreements --accept-package-agreements
+
+# WSL
+winget install 9P9TQF7MRM4R --accept-source-agreements --accept-package-agreements
+
+# Bitwarden
+winget install 9PJSDV0VPK04 --accept-source-agreements --accept-package-agreements
+
+
