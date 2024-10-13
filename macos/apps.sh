@@ -43,3 +43,5 @@ brew install --cask postman
 brew install --cask visual-studio-code
 
 brew install --cask zoom
+
+brew install --cask spotify
