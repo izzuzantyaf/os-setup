@@ -47,3 +47,5 @@ brew install --cask zoom
 brew install --cask spotify
 
 brew install --cask maccy
+
+brew install --cask istat-menus
