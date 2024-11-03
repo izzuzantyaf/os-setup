@@ -48,4 +48,6 @@ brew install --cask spotify
 
 brew install --cask maccy
 
-brew install --cask istat-menus
+# brew install --cask istat-menus
+
+brew install --cask aldente
