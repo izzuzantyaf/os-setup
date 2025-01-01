@@ -51,3 +51,11 @@ brew install --cask maccy
 # brew install --cask istat-menus
 
 brew install --cask aldente
+
+brew install --cask apidog
+
+brew install --cask dbeaver-community
+
+brew install --cask herd
+
+brew install --cask windsurf
