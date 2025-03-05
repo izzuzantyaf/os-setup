@@ -46,7 +46,7 @@ brew install --cask zoom
 
 brew install --cask spotify
 
-brew install --cask maccy
+# brew install --cask maccy
 
 # brew install --cask istat-menus
 
@@ -59,3 +59,5 @@ brew install --cask dbeaver-community
 brew install --cask herd
 
 brew install --cask windsurf
+
+brew install --cask raycast
