@@ -18,7 +18,7 @@ brew install --cask chatgpt
 
 brew install --cask discord
 
-brew install --cask docker
+brew install --cask docker-desktop
 
 brew install --cask figma
 
@@ -58,6 +58,6 @@ brew install --cask dbeaver-community
 
 brew install --cask herd
 
-brew install --cask windsurf
+# brew install --cask windsurf
 
-brew install --cask raycast
+# brew install --cask raycast
