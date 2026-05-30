@@ -22,7 +22,6 @@ brew install wget
 brew install yarn
 brew install yt-dlp
 
-brew install --cask android-platform-tools
 brew install --cask antigravity-cli
 brew install --cask antigravity-ide
 brew install --cask apidog
