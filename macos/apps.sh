@@ -56,6 +56,7 @@ brew install --cask tailscale-app
 brew install --cask tradingview
 brew install --cask visual-studio-code
 brew install --cask warp
+brew install --cask wezterm
 brew install --cask zed
 brew install --cask zen
 brew install --cask zoom
