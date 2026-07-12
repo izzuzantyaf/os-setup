@@ -54,6 +54,7 @@
       "wget"
       "yarn"
       "yt-dlp"
+      "mas"
     ];
     casks = [
       "antigravity-cli"
