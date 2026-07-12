@@ -10,6 +10,8 @@ config.hide_tab_bar_if_only_one_tab = true
 config.window_decorations = "RESIZE"
 
 config.window_frame = {
+  font = config.font,
+  font_size = config.font_size,
   border_left_width = "2px",
   border_right_width = "2px",
   border_bottom_height = "2px",
