@@ -76,7 +76,6 @@
       "lm-studio"
       "microsoft-auto-update"
       "microsoft-teams"
-      "ngrok"
       "obs"
       "obsidian"
       "ollama-app"
