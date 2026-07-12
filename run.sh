@@ -21,8 +21,9 @@ then
   cd ./ubuntu/wsl
 elif test $num = 4
 then
-  echo 'Installing MacOS apps'
-  cd ./macos 
+  echo 'MacOS setup is managed via Nix-Darwin.'
+  echo 'Run ./bootstrap.sh for fresh setup or ./rebuild.sh to update.'
+  exit
 else
   echo 'Invalid input'
   exit

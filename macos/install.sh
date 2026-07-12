@@ -1,1 +1,0 @@
-bash ./apps.sh
