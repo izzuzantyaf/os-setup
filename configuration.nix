@@ -17,10 +17,42 @@
       KeyRepeat = 2;          # fast key repeat
       InitialKeyRepeat = 15;  # short delay before repeat
       AppleShowAllExtensions = true;
+      AppleInterfaceStyleSwitchesAutomatically = true;
     };
     finder.FXPreferredViewStyle = "clmv";  # column view by default
     finder.CreateDesktop = false;          # clean desktop
     trackpad.Clicking = true;              # tap to click
+    dock = {
+      autohide = false;
+      persistent-apps = [
+        "/System/Applications/Finder.app"
+        "/System/Applications/Mail.app"
+        "/System/Applications/Reminders.app"
+        "/Applications/Obsidian.app"
+        "/Applications/Safari.app"
+        "/Applications/Google Chrome.app"
+        "/Applications/Microsoft Teams.app"
+        "/Applications/Figma.app"
+        "/Applications/WezTerm.app"
+        "/Applications/Zed.app"
+        "/Applications/Antigravity IDE.app"
+        "/Applications/Gemini.app"
+        "/Applications/Claude.app"
+        "/Applications/RapidAPI.app"
+        "/System/Applications/Music.app"
+        "/Users/${user}/Applications/Duolingo.app"
+      ];
+      persistent-others = [
+        {
+          folder = {
+            path = "/Users/${user}/Downloads";
+            displayas = "folder";
+            showas = "fan";
+            arrangement = "date-added";
+          };
+        }
+      ];
+    };
   };
   nix-homebrew = {
     enable = true;
@@ -55,6 +87,7 @@
       "yarn"
       "yt-dlp"
       "mas"
+      "mlx-lm"
     ];
     casks = [
       "antigravity-cli"
@@ -62,10 +95,8 @@
       "audacity"
       "beekeeper-studio"
       "blip"
-      "chatgpt"
       "cloudflare-warp"
       "codex"
-      "codex-app"
       "cursor"
       "discord"
       "figma"
@@ -79,7 +110,6 @@
       "microsoft-teams"
       "obs"
       "obsidian"
-      "ollama-app"
       "openvpn-connect"
       "orbstack"
       "protonvpn"
