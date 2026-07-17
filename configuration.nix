@@ -25,8 +25,8 @@
     dock = {
       autohide = false;
       persistent-apps = [
-        "/System/Applications/Finder.app"
         "/System/Applications/Mail.app"
+        "/System/Applications/Notes.app"
         "/System/Applications/Reminders.app"
         "/Applications/Obsidian.app"
         "/Applications/Safari.app"
