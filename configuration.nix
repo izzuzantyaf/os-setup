@@ -18,12 +18,62 @@
       InitialKeyRepeat = 15;  # short delay before repeat
       AppleShowAllExtensions = true;
       AppleInterfaceStyleSwitchesAutomatically = true;
+      "com.apple.sound.beep.volume" = 0.7788008;  # ~75% alert volume
+      "com.apple.sound.beep.feedback" = 0;        # no feedback on volume change
+      "com.apple.trackpad.scaling" = 1.5;          # tracking speed (~40%)
+      "com.apple.swipescrolldirection" = true;     # natural scrolling
+      AppleEnableSwipeNavigateWithScrolls = true;  # two-finger swipe between pages
+    };
+    ".GlobalPreferences" = {
+      "com.apple.sound.beep.sound" = "/System/Library/Sounds/Funk.aiff";  # alert sound
+    };
+    screensaver = {
+      askForPassword = true;
+      askForPasswordDelay = 60;  # 1 minute
+    };
+    loginwindow = {
+      SHOWFULLNAME = false;       # show list of users
+      ShutDownDisabled = false;
+      SleepDisabled = false;
+      RestartDisabled = false;
+    };
+    screencapture = {
+      location = "~/Documents";
+      type = "png";
+      disable-shadow = false;
+      include-date = true;
+      save-selections = true;
+      show-thumbnail = true;
+      target = "file";
     };
     finder.FXPreferredViewStyle = "clmv";  # column view by default
     finder.CreateDesktop = false;          # clean desktop
-    trackpad.Clicking = true;              # tap to click
+    trackpad = {
+      Clicking = true;                              # tap to click
+      TrackpadRightClick = true;                    # two-finger click for right click
+      FirstClickThreshold = 0;                      # light click
+      ForceSuppressed = false;                      # force click enabled
+      ActuateDetents = true;                        # haptic feedback
+      TrackpadPinch = true;                         # pinch to zoom
+      TrackpadTwoFingerDoubleTapGesture = true;     # smart zoom
+      TrackpadRotate = true;                        # two-finger rotation
+      TrackpadFourFingerHorizSwipeGesture = 2;      # four-finger swipe between full-screen apps
+      TrackpadTwoFingerFromRightEdgeSwipeGesture = 3;  # two-finger swipe for Notification Center
+      TrackpadFourFingerVertSwipeGesture = 2;       # four-finger swipe for Mission Control & App Exposé
+      TrackpadFourFingerPinchGesture = 2;           # four-finger spread for Show Desktop
+    };
     dock = {
       autohide = false;
+      orientation = "bottom";
+      mineffect = "genie";
+      minimize-to-application = true;
+      launchanim = true;
+      show-process-indicators = true;
+      show-recents = false;
+      showAppExposeGestureEnabled = true;   # four-finger swipe down for App Exposé
+      showMissionControlGestureEnabled = true;  # four-finger swipe up for Mission Control
+      showDesktopGestureEnabled = true;     # four-finger spread for Show Desktop
+      showLaunchpadGestureEnabled = false;  # four-finger pinch for Launchpad
       persistent-apps = [
         "/System/Applications/Mail.app"
         "/System/Applications/Notes.app"
@@ -35,12 +85,11 @@
         "/Applications/Figma.app"
         "/Applications/WezTerm.app"
         "/Applications/Zed.app"
-        "/Applications/Antigravity IDE.app"
         "/Applications/Gemini.app"
         "/Applications/Claude.app"
         "/Applications/RapidAPI.app"
         "/System/Applications/Music.app"
-        "/Users/${user}/Applications/Duolingo.app"
+        "/Users/${user}/Applications/YouTube.app"
       ];
       persistent-others = [
         {
@@ -74,7 +123,6 @@
       "go"
       "k6"
       "mole"
-      "oh-my-posh"
       "ollama"
       "hermes-agent"
       "opencode"
@@ -105,7 +153,6 @@
       "google-gemini"
       "herd"
       "iina"
-      "lm-studio"
       "microsoft-auto-update"
       "microsoft-teams"
       "obs"
