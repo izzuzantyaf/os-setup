@@ -136,6 +136,8 @@
       "yt-dlp"
       "mas"
       "mlx-lm"
+      "pi-coding-agent"
+      "ghostscript"
     ];
     casks = [
       "antigravity-cli"
@@ -153,6 +155,7 @@
       "google-gemini"
       "herd"
       "iina"
+      "kimi"
       "microsoft-auto-update"
       "microsoft-teams"
       "obs"
