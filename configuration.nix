@@ -171,6 +171,7 @@
       "zed"
       "zen"
       "zoom"
+      "hermes-desktop"
     ];
   };
 }
