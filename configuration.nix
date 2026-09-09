@@ -80,8 +80,7 @@
         "/System/Applications/Reminders.app"
         "/Applications/Obsidian.app"
         "/Applications/Safari.app"
-        "/Applications/Google Chrome.app"
-        "/Applications/Microsoft Teams.app"
+        "/Applications/Brave Browser.app"
         "/Applications/Figma.app"
         "/Applications/WezTerm.app"
         "/Applications/Zed.app"
@@ -115,11 +114,10 @@
     onActivation.autoUpdate = true;
     onActivation.extraFlags = [ "--force" ];
     brews = [
-      "node"
+      "fnm"
       "bun"
       "curl"
       "ffmpeg"
-      "fnm"
       "go"
       "k6"
       "mole"
@@ -138,6 +136,7 @@
       "mlx-lm"
       "pi-coding-agent"
       "ghostscript"
+      "herdr"
     ];
     casks = [
       "antigravity-cli"
@@ -145,6 +144,7 @@
       "audacity"
       "beekeeper-studio"
       "blip"
+      "brave-browser"
       "cloudflare-warp"
       "codex"
       "cursor"
@@ -156,22 +156,18 @@
       "herd"
       "iina"
       "kimi"
-      "microsoft-auto-update"
-      "microsoft-teams"
       "obs"
       "obsidian"
       "openvpn-connect"
       "orbstack"
       "protonvpn"
       "rapidapi"
-      "tradingview"
-      "visual-studio-code"
-      "warp"
       "wezterm"
       "zed"
       "zen"
       "zoom"
       "hermes-desktop"
+      "vorssaint"
     ];
   };
 }
