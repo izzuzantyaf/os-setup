@@ -27,6 +27,7 @@ in
     syntaxHighlighting.enable = true;  # commands turn green when valid
     initContent = ''
       bindkey '^f' autosuggest-accept
+      eval "$(fnm env --use-on-cd --shell zsh)"
     '';
   };
 
