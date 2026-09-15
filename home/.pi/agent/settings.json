@@ -1,6 +1,6 @@
 {
   "lastChangelogVersion": "0.84.4",
-  "theme": "dark",
+  "theme": "opencode",
   "defaultProvider": "9router",
   "defaultModel": "ocg/deepseek-v4-flash",
   "defaultThinkingLevel": "high",
