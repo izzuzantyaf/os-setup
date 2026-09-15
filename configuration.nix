@@ -162,6 +162,7 @@
       "orbstack"
       "protonvpn"
       "rapidapi"
+      "transmission"
       "wezterm"
       "zed"
       "zen"
