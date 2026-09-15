@@ -1,0 +1,13 @@
+{
+  "lastChangelogVersion": "0.84.4",
+  "theme": "dark",
+  "defaultProvider": "9router",
+  "defaultModel": "ocg/deepseek-v4-flash",
+  "defaultThinkingLevel": "high",
+  "enabledModels": [
+    "9router/ocg/glm-5.3-flash",
+    "9router/ocg/deepseek-v4-pro",
+    "9router/ocg/deepseek-v4-flash",
+    "9router/ocg/deepseek-v4-flash-vision-exp"
+  ]
+}

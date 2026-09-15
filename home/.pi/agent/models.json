@@ -1,0 +1,411 @@
+{
+  "providers": {
+    "9router": {
+      "name": "9Router (local)",
+      "baseUrl": "http://localhost:20128/v1",
+      "api": "openai-completions",
+      "apiKey": "sk-259cdc8fcce40ad8-i452tt-48fb867a",
+      "compat": {
+        "supportsDeveloperRole": false,
+        "supportsReasoningEffort": false
+      },
+      "models": [
+        {
+          "id": "ocg/glm-5.3-flash",
+          "name": "ocg/glm-5.3-flash",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 1000000,
+          "maxTokens": 131072,
+          "compat": {
+            "supportsReasoningEffort": false,
+            "maxTokensField": "max_tokens",
+            "thinkingFormat": "zai"
+          }
+        },
+        {
+          "id": "ocg/glm-5.2",
+          "name": "ocg/glm-5.2",
+          "reasoning": true,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 200000,
+          "maxTokens": 128000,
+          "compat": {
+            "supportsReasoningEffort": true,
+            "maxTokensField": "max_tokens",
+            "thinkingFormat": "zai"
+          }
+        },
+        {
+          "id": "ocg/glm-5.1",
+          "name": "ocg/glm-5.1",
+          "reasoning": true,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 200000,
+          "maxTokens": 128000,
+          "compat": {
+            "supportsReasoningEffort": false,
+            "maxTokensField": "max_tokens",
+            "thinkingFormat": "zai"
+          }
+        },
+        {
+          "id": "ocg/kimi-k2.7-code",
+          "name": "ocg/kimi-k2.7-code",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 262144,
+          "maxTokens": 65536,
+          "compat": {
+            "supportsReasoningEffort": false,
+            "maxTokensField": "max_tokens",
+            "thinkingFormat": "zai",
+            "thinkingLevelMap": {
+              "off": null
+            }
+          }
+        },
+        {
+          "id": "ocg/kimi-k2.6",
+          "name": "ocg/kimi-k2.6",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 262144,
+          "maxTokens": 262144,
+          "compat": {
+            "supportsReasoningEffort": false,
+            "maxTokensField": "max_tokens",
+            "thinkingFormat": "zai"
+          }
+        },
+        {
+          "id": "ocg/deepseek-v4-pro",
+          "name": "ocg/deepseek-v4-pro",
+          "reasoning": true,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 1000000,
+          "maxTokens": 384000,
+          "compat": {
+            "supportsReasoningEffort": false,
+            "maxTokensField": "max_tokens",
+            "thinkingFormat": "deepseek"
+          }
+        },
+        {
+          "id": "ocg/deepseek-v4-flash",
+          "name": "ocg/deepseek-v4-flash",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 1000000,
+          "maxTokens": 384000,
+          "compat": {
+            "supportsReasoningEffort": false,
+            "maxTokensField": "max_tokens",
+            "thinkingFormat": "deepseek"
+          }
+        },
+        {
+          "id": "ocg/deepseek-v4-flash-vision-exp",
+          "name": "ocg/deepseek-v4-flash-vision-exp",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 1000000,
+          "maxTokens": 384000,
+          "compat": {
+            "supportsReasoningEffort": false,
+            "maxTokensField": "max_tokens",
+            "thinkingFormat": "deepseek"
+          }
+        },
+        {
+          "id": "ocg/mimo-v2.5",
+          "name": "ocg/mimo-v2.5",
+          "reasoning": false,
+          "input": [
+            "text",
+            "image"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 1048576,
+          "maxTokens": 131072,
+          "compat": {
+            "supportsReasoningEffort": false,
+            "maxTokensField": "max_tokens"
+          }
+        },
+        {
+          "id": "ocg/mimo-v2.5-pro",
+          "name": "ocg/mimo-v2.5-pro",
+          "reasoning": false,
+          "input": [
+            "text",
+            "image"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 1048576,
+          "maxTokens": 131072,
+          "compat": {
+            "supportsReasoningEffort": false,
+            "maxTokensField": "max_tokens"
+          }
+        },
+        {
+          "id": "ocg/minimax-m3",
+          "name": "ocg/minimax-m3",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 1048576,
+          "maxTokens": 512000,
+          "compat": {
+            "supportsReasoningEffort": false,
+            "maxTokensField": "max_tokens",
+            "thinkingFormat": "zai"
+          }
+        },
+        {
+          "id": "ocg/minimax-m2.7",
+          "name": "ocg/minimax-m2.7",
+          "reasoning": true,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 204800,
+          "maxTokens": 131072,
+          "compat": {
+            "supportsReasoningEffort": false,
+            "maxTokensField": "max_tokens",
+            "thinkingFormat": "zai",
+            "thinkingLevelMap": {
+              "off": null
+            }
+          }
+        },
+        {
+          "id": "ocg/minimax-m2.5",
+          "name": "ocg/minimax-m2.5",
+          "reasoning": true,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 200000,
+          "maxTokens": 131072,
+          "compat": {
+            "supportsReasoningEffort": false,
+            "maxTokensField": "max_tokens",
+            "thinkingFormat": "zai",
+            "thinkingLevelMap": {
+              "off": null
+            }
+          }
+        },
+        {
+          "id": "ocg/qwen3.7-max",
+          "name": "ocg/qwen3.7-max",
+          "reasoning": true,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 1000000,
+          "maxTokens": 65536,
+          "compat": {
+            "supportsReasoningEffort": false,
+            "maxTokensField": "max_tokens",
+            "thinkingFormat": "qwen"
+          }
+        },
+        {
+          "id": "ocg/qwen3.7-plus",
+          "name": "ocg/qwen3.7-plus",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 1000000,
+          "maxTokens": 65536,
+          "compat": {
+            "supportsReasoningEffort": false,
+            "maxTokensField": "max_tokens",
+            "thinkingFormat": "qwen"
+          }
+        },
+        {
+          "id": "ocg/qwen3.6-plus",
+          "name": "ocg/qwen3.6-plus",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 1000000,
+          "maxTokens": 65536,
+          "compat": {
+            "supportsReasoningEffort": false,
+            "maxTokensField": "max_tokens",
+            "thinkingFormat": "qwen"
+          }
+        },
+        {
+          "id": "ocg/muse-spark-1.2-contributor",
+          "name": "ocg/muse-spark-1.2-contributor",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 1048576,
+          "maxTokens": 131072,
+          "compat": {
+            "supportsReasoningEffort": false,
+            "maxTokensField": "max_tokens"
+          }
+        },
+        {
+          "id": "ocg/muse-spark-1.3-contributor",
+          "name": "ocg/muse-spark-1.3-contributor",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 1048576,
+          "maxTokens": 131072,
+          "compat": {
+            "supportsReasoningEffort": false,
+            "maxTokensField": "max_tokens"
+          }
+        }
+      ]
+    }
+  }
+}
