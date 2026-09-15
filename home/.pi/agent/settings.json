@@ -2,12 +2,13 @@
   "lastChangelogVersion": "0.84.4",
   "theme": "opencode",
   "defaultProvider": "9router",
-  "defaultModel": "ocg/deepseek-v4-flash",
+  "defaultModel": "ocg/deepseek-flash",
   "defaultThinkingLevel": "high",
   "enabledModels": [
     "9router/ocg/glm-5.3-flash",
     "9router/ocg/deepseek-v4-pro",
-    "9router/ocg/deepseek-v4-flash",
-    "9router/ocg/deepseek-v4-flash-vision-exp"
+    "9router/ocg/deepseek-v4-flash-vision-exp",
+    "9router/ocg/deepseek-flash",
+    "9router/ocg/deepseek-v4-flash"
   ]
 }
