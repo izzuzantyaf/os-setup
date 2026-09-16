@@ -158,20 +158,26 @@ const tokens = (paths: string[]) => {
   }
   return [...set];
 };
+/** Shell reads of these are the real exfil path — the file tools gated them, bash did not. */
+const SECRET_TOKENS = tokens(SECRET_FILES);
 const CONTROL_TOKENS = tokens(CONTROL_FILES);
 const SENSITIVE_TOKENS = tokens([...WRITE_DENY_FILES, ...WRITE_DENY_DIRS, ...ASK_FILES].filter((p) => !CONTROL_FILES.includes(p)));
 
 /**
  * Shell-side counterpart to decideWrite: same paths, since `sed -i`/`tee`/`>`
- * reach them just as well as the file tools do.
+ * reach them just as well as the file tools do. Credential reads are denied
+ * outright; every other path check needs a write verb, so mentioning a path
+ * is not a write.
  * ponytail: token+verb heuristic, not a shell parser — quoted mentions can
  * false-positive and exotic quoting can false-negative. Upgrade path: reuse
  * Hermes' quote-aware command parsing if this ever needs to be airtight.
  */
 export function decideShell(cmd: string): Verdict {
+  const secret = SECRET_TOKENS.find((t) => cmd.includes(t));
+  if (secret) return { deny: `shell read of pi's credential store (${secret})` };
+  if (!WRITE_VERB.test(cmd)) return null;
   const control = CONTROL_TOKENS.find((t) => cmd.includes(t));
   if (control) return { deny: `shell write to pi's security config (${control})` };
-  if (!WRITE_VERB.test(cmd)) return null;
   const hit = SENSITIVE_TOKENS.find((t) => cmd.includes(t));
   return hit ? { ask: `shell write to a protected path (${hit})` } : null;
 }

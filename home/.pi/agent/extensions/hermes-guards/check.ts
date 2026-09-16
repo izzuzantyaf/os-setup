@@ -50,6 +50,10 @@ for (const cmd of ["rm -rf /tmp/build", "rm -rf node_modules", "grep -r 'rm -rf 
 
 // shell path policy
 assert.match(decideShell("echo x > ~/.pi/agent/settings.json")!.deny!, /security config/);
+// shell read-deny: the file tools gated secrets, bash did not
+assert.match(decideShell("cat ~/.pi/agent/auth.json")!.deny!, /credential store/);
+assert.match(decideShell("grep -r KEY ~/.pi/agent/models.json")!.deny!, /credential store/);
+assert.equal(decideShell("cat ~/.pi/agent/settings.json"), null); // mentioning a control file is not a write
 assert.match(decideShell("tee -a ~/.ssh/authorized_keys")!.ask!, /protected path/);
 assert.equal(decideShell("cat ~/.ssh/config"), null); // read via shell is not gated
 assert.equal(decideShell("rm -rf build"), null);
