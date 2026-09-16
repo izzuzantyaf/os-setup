@@ -62,6 +62,10 @@ in
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.pi/agent/settings.json";
   home.file.".pi/agent/models.json".source =
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.pi/agent/models.json";
+  home.file.".pi/agent/keybindings.json".source =
+    config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.pi/agent/keybindings.json";
+  home.file.".pi/agent/web-search.json".source =
+    config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.pi/agent/web-search.json";
   home.file.".pi/agent/AGENTS.md".source =
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.pi/agent/AGENTS.md";
   home.file.".pi/agent/prompts".source =
