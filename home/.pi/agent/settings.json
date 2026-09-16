@@ -14,5 +14,11 @@
   "packages": [
     "npm:pi-mcp-adapter",
     "npm:pi-web-access"
-  ]
+  ],
+  "editorPaddingX": 3,
+  "outputPad": 1,
+  "terminal": {
+    "showTerminalProgress": true
+  },
+  "hideThinkingBlock": true
 }
