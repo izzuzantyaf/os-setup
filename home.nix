@@ -57,7 +57,8 @@ in
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/wezterm";
 
   # Pi coding agent: config files stay in this repo, ~/.pi/agent points at them.
-  # auth.json, sessions/, models-store.json and herdr's extension stay real on disk.
+  # auth.json, sessions/, models-store.json, herdr's extension and big-pi-logo.ts
+  # stay real on disk.
   home.file.".pi/agent/settings.json".source =
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.pi/agent/settings.json";
   home.file.".pi/agent/models.json".source =
@@ -80,6 +81,8 @@ in
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.pi/agent/extensions/ask-mode";
   home.file.".pi/agent/extensions/modes".source =
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.pi/agent/extensions/modes";
+  home.file.".pi/agent/extensions/big-pi-logo.ts".source =
+    config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.pi/agent/extensions/big-pi-logo.ts";
 
   home.file.".gemini/GEMINI.md".source =
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/AGENTS.md";
