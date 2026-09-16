@@ -43,7 +43,7 @@ const piStore = (...f: string[]) => join(PI_HOME, ...f);
 /** Hermes: credential/secret stores — read-denied and write-denied. */
 const SECRET_FILES = both([piStore("auth.json"), piStore("models.json"), piStore("models-store.json"), piStore(".env")]);
 /** Hermes: control files — read-denied, hard-blocked for the agent, edit them yourself. */
-const CONTROL_FILES = both([piStore("settings.json"), piStore("trust.json")]);
+const CONTROL_FILES = both([piStore("trust.json")]);
 
 const WRITE_DENY_FILES = both([
   ...SECRET_FILES,
@@ -80,7 +80,8 @@ const WRITE_DENY_DIRS = both([
 const ENV_BASENAMES = new Set([".env", ".env.local", ".env.development", ".env.production", ".env.test", ".env.staging", ".envrc"]);
 
 /** Hermes: not hard-blocked, but a human must confirm — they can steer execution/future turns. */
-const ASK_FILES = both([join(HOME, ".ssh", "config")]);
+/** settings.json is agent-readable; writes still need a human because it steers every future session. */
+const ASK_FILES = both([join(HOME, ".ssh", "config"), piStore("settings.json")]);
 const INSTRUCTION_BASENAMES = new Set(["agents.md", "agents.override.md", "claude.md", "soul.md", ".cursorrules"]);
 const CONFIG_SEGMENTS = new Set([".pi", ".agents"]);
 

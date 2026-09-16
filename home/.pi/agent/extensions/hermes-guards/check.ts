@@ -20,10 +20,12 @@ assert.match(decideWrite("~/.ssh/id_ed25519", cwd)!.deny!, /protected directory/
 assert.match(decideWrite("~/.aws/credentials", cwd)!.deny!, /protected directory/);
 assert.match(decideWrite("/etc/hosts", cwd)!.deny!, /protected directory/);
 assert.match(decideWrite("~/.git-credentials", cwd)!.deny!, /credential/);
-assert.match(decideWrite("~/.pi/agent/settings.json", cwd)!.deny!, /security config/);
+assert.match(decideWrite("~/.pi/agent/trust.json", cwd)!.deny!, /security config/);
+assert.equal(decideRead("~/.pi/agent/settings.json", cwd), null); // readable so the agent can inspect itself
 
 // write ask
 assert.match(decideWrite("~/.ssh/config", cwd)!.ask!, /process execution/);
+assert.match(decideWrite("~/.pi/agent/settings.json", cwd)!.ask!, /process execution/);
 assert.match(decideWrite("AGENTS.md", cwd)!.ask!, /steers future/);
 assert.match(decideWrite(join(cwd, "sub", "CLAUDE.md"), cwd)!.ask!, /steers future/);
 assert.match(decideWrite(join(cwd, ".pi", "extensions", "x.ts"), cwd)!.ask!, /\.pi config tree/);
@@ -49,7 +51,7 @@ for (const cmd of ["rm -rf /tmp/build", "rm -rf node_modules", "grep -r 'rm -rf 
 }
 
 // shell path policy
-assert.match(decideShell("echo x > ~/.pi/agent/settings.json")!.deny!, /security config/);
+assert.match(decideShell("echo x > ~/.pi/agent/settings.json")!.ask!, /protected path/);
 // shell read-deny: the file tools gated secrets, bash did not
 assert.match(decideShell("cat ~/.pi/agent/auth.json")!.deny!, /credential store/);
 assert.match(decideShell("grep -r KEY ~/.pi/agent/models.json")!.deny!, /credential store/);
