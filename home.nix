@@ -72,6 +72,10 @@ in
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.pi/agent/extensions/plan-mode";
   home.file.".pi/agent/extensions/hermes-guards".source =
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.pi/agent/extensions/hermes-guards";
+  home.file.".pi/agent/extensions/ask-mode".source =
+    config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.pi/agent/extensions/ask-mode";
+  home.file.".pi/agent/extensions/modes".source =
+    config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.pi/agent/extensions/modes";
 
   home.file.".gemini/GEMINI.md".source =
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/AGENTS.md";
