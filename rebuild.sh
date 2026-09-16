@@ -13,6 +13,7 @@ apps=(
   "WhatsApp:310633997"
   "Obsidian Web Clipper:6720708363"
   "MonitorControl Lite:1595464182"
+  "CleanMyKeyboard:6468120888"
   "CapCut:1500855883"
   "Speedtest by Ookla:1153157709"
   "Canva:897446215"
