@@ -410,7 +410,8 @@
           "name": "ocg/deepseek-flash",
           "reasoning": true,
           "input": [
-            "text"
+            "text",
+            "image"
           ],
           "cost": {
             "input": 0,
@@ -418,8 +419,8 @@
             "cacheRead": 0,
             "cacheWrite": 0
           },
-          "contextWindow": 128000,
-          "maxTokens": 64000,
+          "contextWindow": 1000000,
+          "maxTokens": 384000,
           "compat": {
             "supportsReasoningEffort": false,
             "maxTokensField": "max_tokens",

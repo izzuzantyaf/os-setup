@@ -7,3 +7,6 @@
 **/.DS_Store
 **/._*
 
+# pi's timestamped backups of managed config
+home/.pi/agent/*.bak-*
+

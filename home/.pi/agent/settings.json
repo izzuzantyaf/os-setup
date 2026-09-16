@@ -12,6 +12,7 @@
     "9router/ocg/deepseek-v4-flash"
   ],
   "packages": [
-    "npm:pi-mcp-adapter"
+    "npm:pi-mcp-adapter",
+    "npm:pi-web-access"
   ]
 }
