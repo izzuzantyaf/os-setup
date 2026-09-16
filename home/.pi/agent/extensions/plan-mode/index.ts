@@ -15,7 +15,6 @@
 import type { AgentMessage } from "@earendil-works/pi-agent-core";
 import type { AssistantMessage, TextContent } from "@earendil-works/pi-ai";
 import type { ExtensionAPI, ExtensionContext } from "@earendil-works/pi-coding-agent";
-import { Key } from "@earendil-works/pi-tui";
 import { extractTodoItems, isSafeCommand, markCompletedSteps, type TodoItem } from "./utils.ts";
 
 // Tools
@@ -49,6 +48,7 @@ export default function planModeExtension(pi: ExtensionAPI): void {
 	let executionMode = false;
 	let todoItems: TodoItem[] = [];
 	let toolsBeforePlanMode: string[] | undefined;
+	let currentCtx: ExtensionContext | undefined;
 
 	pi.registerFlag("plan", {
 		description: "Start in plan mode (read-only exploration)",
@@ -122,8 +122,10 @@ export default function planModeExtension(pi: ExtensionAPI): void {
 		});
 	}
 
-	function togglePlanMode(ctx: ExtensionContext): void {
-		planModeEnabled = !planModeEnabled;
+	function setPlanMode(next: boolean, ctx: ExtensionContext): void {
+		if (planModeEnabled === next && !executionMode) return;
+		const wasActive = planModeEnabled || executionMode;
+		planModeEnabled = next;
 		executionMode = false;
 		todoItems = [];
 
@@ -131,7 +133,7 @@ export default function planModeExtension(pi: ExtensionAPI): void {
 			enablePlanModeTools();
 			ctx.ui.notify("Plan mode enabled. Built-in write tools disabled.");
 		} else {
-			restoreNormalModeTools();
+			if (wasActive) restoreNormalModeTools();
 			ctx.ui.notify("Plan mode disabled. Full access restored.");
 		}
 		updateStatus(ctx);
@@ -140,7 +142,11 @@ export default function planModeExtension(pi: ExtensionAPI): void {
 
 	pi.registerCommand("plan", {
 		description: "Toggle plan mode (read-only exploration)",
-		handler: async (_args, ctx) => togglePlanMode(ctx),
+		handler: async () => {
+			const wasOn = planModeEnabled;
+			pi.events.emit("mode:disable", undefined);
+			if (!wasOn) pi.events.emit("mode:enable", "plan");
+		},
 	});
 
 	pi.registerCommand("todos", {
@@ -155,9 +161,12 @@ export default function planModeExtension(pi: ExtensionAPI): void {
 		},
 	});
 
-	pi.registerShortcut(Key.tab, {
-		description: "Toggle plan mode",
-		handler: async (ctx) => togglePlanMode(ctx),
+	// React to the shared mode selector (Tab cycles agent → plan → ask).
+	pi.events.on("mode:disable", () => {
+		if (currentCtx) setPlanMode(false, currentCtx);
+	});
+	pi.events.on("mode:enable", (data) => {
+		if (data === "plan" && currentCtx) setPlanMode(true, currentCtx);
 	});
 
 	// Block destructive bash commands in plan mode
@@ -338,6 +347,7 @@ After completing a step, include a [DONE:n] tag in your response.`;
 
 	// Restore state on session start/resume
 	pi.on("session_start", async (_event, ctx) => {
+		currentCtx = ctx;
 		if (pi.getFlag("plan") === true) {
 			planModeEnabled = true;
 		}
@@ -384,6 +394,7 @@ After completing a step, include a [DONE:n] tag in your response.`;
 
 		if (planModeEnabled) {
 			enablePlanModeTools();
+			persistState();
 		}
 		updateStatus(ctx);
 	});
