@@ -15,7 +15,7 @@
     "npm:pi-mcp-adapter",
     "npm:pi-web-access"
   ],
-  "editorPaddingX": 3,
+  "editorPaddingX": 1,
   "outputPad": 1,
   "terminal": {
     "showTerminalProgress": true
