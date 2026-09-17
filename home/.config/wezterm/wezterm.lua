@@ -19,7 +19,7 @@ end)
 
 config.font = wezterm.font("JetBrainsMono Nerd Font")
 config.font_size = 14.0
-config.window_background_opacity = 0.8
+config.window_background_opacity = 1.0
 config.macos_window_background_blur = 100
 config.hide_tab_bar_if_only_one_tab = true
 config.window_decorations = "RESIZE"
