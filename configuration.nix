@@ -102,6 +102,7 @@
       ];
     };
   };
+  security.pam.services.sudo_local.touchIdAuth = true;  # "Touch ID or Enter Password" for sudo in GUI terminals
   nix-homebrew = {
     enable = true;
     inherit user;
