@@ -16,9 +16,10 @@ assert.equal(
 	"off",
 );
 
-// Tab cycle order: agent → plan → agent.
+// Option+Tab cycle order: agent → plan → ask → agent.
 assert.equal(nextMode("off"), "plan");
-assert.equal(nextMode("plan"), "off");
+assert.equal(nextMode("plan"), "ask");
+assert.equal(nextMode("ask"), "off");
 
 // Bash floor is plan mode's allowlist.
 assert.equal(isSafeCommand("rm -rf /tmp/x"), false);

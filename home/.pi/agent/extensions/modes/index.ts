@@ -1,5 +1,5 @@
 /**
- * Mode selector for Tab: agent → plan → ask.
+ * Mode selector for Option+Tab (alt+tab): agent → plan → ask.
  *
  * plan-mode and ask-mode are separate extensions (plan-mode is an out-of-store
  * symlink, so a shared relative import will not resolve), hence this coordinator
@@ -50,7 +50,7 @@ export function switchMode(pi: ExtensionAPI, mode: Mode): void {
 }
 
 export default function modeSelector(pi: ExtensionAPI): void {
-	pi.registerShortcut("tab", {
+	pi.registerShortcut("alt+tab", {
 		description: "Cycle modes: agent → plan → ask",
 		handler: async (ctx: ExtensionContext) =>
 			switchMode(pi, nextMode(modeFromEntries(ctx.sessionManager.getEntries() as ModeEntry[]))),
