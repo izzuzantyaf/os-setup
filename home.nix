@@ -55,6 +55,19 @@ in
   # Edit-in-place: the real file stays in my repo, ~/.config just points at it.
   home.file.".config/wezterm".source =
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/wezterm";
+  # nvim writes lazy-lock.json here on plugin updates, so the whole dir is managed.
+  home.file.".config/nvim".source =
+    config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/nvim";
+  # The rest stay file-level: their dirs also hold state (zed conversations,
+  # herdr logs, mole clean-list, mcp's .bak files) that must not land in the repo.
+  home.file.".config/mcp/mcp.json".source =
+    config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/mcp/mcp.json";
+  home.file.".config/zed/settings.json".source =
+    config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/zed/settings.json";
+  home.file.".config/herdr/config.toml".source =
+    config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/herdr/config.toml";
+  home.file.".config/mole/whitelist".source =
+    config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/mole/whitelist";
 
   # Pi coding agent: config files stay in this repo, ~/.pi/agent points at them.
   # auth.json, sessions/, models-store.json, herdr's extension and big-pi-logo.ts

@@ -1,0 +1,27 @@
+# Mole Whitelist - Protected paths won't be deleted
+# Default protections: Playwright browsers, HuggingFace models, Maven repo, Ollama models, Surge Mac, R renv, Finder metadata
+# Add one pattern per line to keep items safe.
+
+~/.gradle/daemon/*
+~/.m2/repository/*
+~/Library/Caches/org.R-project.R/R/renv/*
+~/Library/Caches/tealdeer/tldr-pages
+~/Library/Caches/ms-playwright*
+~/.ollama/models/*
+~/Library/Caches/com.nssurge.surge-mac/*
+~/Library/Application Support/com.nssurge.surge-mac/*
+FINDER_METADATA
+~/Library/Caches/com.apple.mail/*
+~/Library/Caches/com.apple.Safari/*
+/Users/izzu/.cache/huggingface*
+/Users/izzu/.gradle/caches/*
+/Users/izzu/Library/Caches/pypoetry/virtualenvs*
+/Users/izzu/Library/Caches/JetBrains*
+/Users/izzu/Library/Caches/com.jetbrains.toolbox*
+/Users/izzu/Library/Application Support/JetBrains*
+/Users/izzu/Library/Caches/com.apple.finder
+/Users/izzu/Library/Mobile Documents*
+/Users/izzu/Library/Caches/com.apple.FontRegistry*
+/Users/izzu/Library/Caches/com.apple.spotlight*
+/Users/izzu/Library/Caches/com.apple.Spotlight*
+/Users/izzu/Library/Caches/CloudKit*

@@ -1,0 +1,30 @@
+{
+  "mcpServers": {
+    "figma": {
+      "url": "https://mcp.figma.com/mcp",
+      "auth": "oauth",
+      "protocolVersion": "auto",
+      "oauth": { "clientName": "pi coding agent" }
+    },
+    "jira": {
+      "url": "https://mcp.atlassian.com/v2/mcp?tools=all",
+      "auth": "oauth",
+      "oauth": { "clientName": "pi coding agent" }
+    },
+    "chrome-devtools": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "chrome-devtools-mcp@latest",
+        "--browser-url=http://127.0.0.1:9222"
+      ]
+    },
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@playwright/mcp@latest"
+      ]
+    }
+  }
+}
