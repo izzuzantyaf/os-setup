@@ -15,7 +15,7 @@ Audit `~/.pi/agent` against the nix-managed dotfiles at `~/os-setup` and report 
 3. Never propose adding these — machine state, cache, or credential:
    `auth.json`, `trust.json`, `models-store.json`, `models.json`, `settings.json`, `mcp-cache.json`, `mcp-npx-cache.json`, `npm/`, `sessions/`, `web-search-cache/`, `*.bak-*`, `.DS_Store`.
 
-4. Guard limits are real. The `hermes-guards` extension denies reads of `auth.json`, `models.json`, `models-store.json`, `settings.json`, `trust.json` through both the file tools and shell. Judge those by symlink target and mtime only. Never attempt a content read and never shell around the guard. If a guarded file matters to a verdict, name it and let the user decide what to share.
+4. Guard limits are real. The `guard` extension denies reads of `auth.json`, `models.json`, `models-store.json`, `settings.json`, `trust.json` through both the file tools and shell. Judge those by symlink target and mtime only. Never attempt a content read and never shell around the guard. If a guarded file matters to a verdict, name it and let the user decide what to share.
 
 5. Verdict for each remaining LOCAL item: `add` or `skip`. Commented reasons required. For every `add`, print the exact `home.nix` line an apply would need:
    ```nix

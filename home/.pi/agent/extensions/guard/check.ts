@@ -1,4 +1,4 @@
-// Self-check: bun ~/.pi/agent/extensions/hermes-guards/check.ts
+// Self-check: bun ~/.pi/agent/extensions/guard/check.ts
 // (not a discovered extension — only */index.ts is auto-loaded)
 import assert from "node:assert/strict";
 import { homedir } from "node:os";
