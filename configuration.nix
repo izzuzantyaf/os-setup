@@ -137,6 +137,7 @@
       "pi-coding-agent"
       "ghostscript"
       "herdr"
+      "nvim"
     ];
     casks = [
       "antigravity-cli"
