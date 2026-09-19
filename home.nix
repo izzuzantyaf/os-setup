@@ -90,8 +90,6 @@ in
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.pi/agent/extensions/plan-mode";
   home.file.".pi/agent/extensions/guard".source =
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.pi/agent/extensions/guard";
-  home.file.".pi/agent/extensions/ask-mode".source =
-    config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.pi/agent/extensions/ask-mode";
   home.file.".pi/agent/extensions/modes".source =
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.pi/agent/extensions/modes";
   home.file.".pi/agent/extensions/big-pi-logo.ts".source =
