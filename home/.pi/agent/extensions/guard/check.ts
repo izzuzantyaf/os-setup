@@ -23,6 +23,14 @@ assert.match(decideWrite("~/.git-credentials", cwd)!.deny!, /credential/);
 assert.match(decideWrite("~/.pi/agent/trust.json", cwd)!.deny!, /security config/);
 assert.equal(decideRead("~/.pi/agent/settings.json", cwd), null); // readable so the agent can inspect itself
 
+// shell profiles carry API keys: denied both ways, file tools and bash alike
+assert.match(decideRead("~/.zprofile", cwd)!, /credential/);
+assert.match(decideRead("~/.zshenv", cwd)!, /credential/);
+assert.match(decideRead("~/.zshrc", cwd)!, /credential/);
+assert.match(decideWrite("~/.zprofile", cwd)!.deny!, /credential/);
+assert.match(decideShell("grep TYPESAFE ~/.zprofile")!.deny!, /credential store/);
+assert.match(decideShell("cat ~/.zshrc")!.deny!, /credential store/);
+
 // write ask
 assert.match(decideWrite("~/.ssh/config", cwd)!.ask!, /process execution/);
 assert.match(decideWrite("~/.pi/agent/settings.json", cwd)!.ask!, /process execution/);

@@ -40,8 +40,10 @@ const PI_HOMES = both([PI_HOME]);
 const inPiHome = (p: string) => PI_HOMES.some((h) => under(p, h));
 const piStore = (...f: string[]) => join(PI_HOME, ...f);
 
+/** Shell profiles can carry API keys (TypeSafe etc.). Tooling reads its key from the keychain instead, so deny these both ways. */
+const SHELL_PROFILES = [join(HOME, ".zprofile"), join(HOME, ".zshenv"), join(HOME, ".zshrc"), join(HOME, ".bash_profile"), join(HOME, ".bashrc"), join(HOME, ".profile"), join(HOME, ".config", "zsh", ".zshrc")];
 /** Hermes: credential/secret stores — read-denied and write-denied. */
-const SECRET_FILES = both([piStore("auth.json"), piStore("models.json"), piStore("models-store.json"), piStore(".env")]);
+const SECRET_FILES = both([piStore("auth.json"), piStore("models.json"), piStore("models-store.json"), piStore(".env"), ...SHELL_PROFILES]);
 /** Hermes: control files — read-denied, hard-blocked for the agent, edit them yourself. */
 const CONTROL_FILES = both([piStore("trust.json")]);
 
