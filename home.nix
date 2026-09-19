@@ -95,6 +95,12 @@ in
   home.file.".pi/agent/extensions/big-pi-logo.ts".source =
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.pi/agent/extensions/big-pi-logo.ts";
 
+  # TypeSafe (Jev) decision skill: primitives, confidence bands, and the
+  # keychain-backed caller script. Lives in .agents/skills so other harnesses
+  # reading that tree get it too. No secret here; the key stays in the keychain.
+  home.file.".agents/skills/typesafe".source =
+    config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.agents/skills/typesafe";
+
   home.file.".gemini/GEMINI.md".source =
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/AGENTS.md";
   home.file.".codex/AGENTS.md".source =
