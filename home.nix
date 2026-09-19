@@ -70,8 +70,8 @@ in
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/mole/whitelist";
 
   # Pi coding agent: config files stay in this repo, ~/.pi/agent points at them.
-  # auth.json, sessions/, models-store.json, herdr's extension and big-pi-logo.ts
-  # stay real on disk.
+  # auth.json, trust.json, sessions/, models-store.json, npm/ and herdr's
+  # generated extension stay real on disk.
   home.file.".pi/agent/settings.json".source =
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.pi/agent/settings.json";
   home.file.".pi/agent/models.json".source =
