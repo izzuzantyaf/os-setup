@@ -40,7 +40,7 @@ assert.match(decideWrite(join(cwd, ".pi", "extensions", "x.ts"), cwd)!.ask!, /\.
 
 // allowed
 assert.equal(decideWrite("src/index.ts", cwd), null);
-assert.equal(decideWrite("~/.pi/agent/extensions/x.ts", cwd), null); // pi's own home is not a project tree
+assert.match(decideWrite("~/.pi/agent/extensions/x.ts", cwd)!.ask!, /agent tooling/); // tooling dirs stay writable, but a human confirms
 assert.equal(decideWrite(".env", cwd), null); // env files stay writable, only read-denied
 
 // symlink escape cannot bypass the deny list
@@ -67,5 +67,16 @@ assert.equal(decideShell("cat ~/.pi/agent/settings.json"), null); // mentioning 
 assert.match(decideShell("tee -a ~/.ssh/authorized_keys")!.ask!, /protected path/);
 assert.equal(decideShell("cat ~/.ssh/config"), null); // read via shell is not gated
 assert.equal(decideShell("rm -rf build"), null);
+
+// agent tooling is writable-in-place via out-of-store symlinks: deleting it is the bypass
+assert.match(decideWrite(join(H, ".agents", "skills", "typesafe", "scripts", "jev.sh"), cwd)!.ask!, /agent tooling/);
+assert.match(decideWrite(join(H, ".pi", "agent", "extensions", "guard", "index.ts"), cwd)!.ask!, /agent tooling/);
+// the out-of-store symlinks resolve into the repo, so the repo side must hit the same rule
+assert.match(decideWrite(join(H, ".os-setup", "home", ".pi", "agent", "extensions", "guard", "index.ts"), cwd)!.ask!, /agent tooling/);
+assert.match(decideWrite(join(H, ".os-setup", "home", ".agents", "skills", "typesafe", "SKILL.md"), cwd)!.ask!, /agent tooling/);
+assert.match(decideShell("rm -rf ~/.agents/skills/typesafe")!.ask!, /protected path/);
+assert.match(decideShell("mv ~/.pi/agent/extensions ~/tmp-ext")!.ask!, /protected path/);
+assert.match(decideShell("cat /dev/null > ~/.pi/agent/extensions/guard/index.ts")!.ask!, /protected path/);
+assert.equal(decideShell("rm -rf ~/agents-skills-backup"), null);
 
 console.log("guards: all checks passed");

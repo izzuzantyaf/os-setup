@@ -86,6 +86,20 @@ const ENV_BASENAMES = new Set([".env", ".env.local", ".env.development", ".env.p
 const ASK_FILES = both([join(HOME, ".ssh", "config"), piStore("settings.json")]);
 const INSTRUCTION_BASENAMES = new Set(["agents.md", "agents.override.md", "claude.md", "soul.md", ".cursorrules"]);
 const CONFIG_SEGMENTS = new Set([".pi", ".agents"]);
+/**
+ * Agent tooling itself. These live in the dotfiles repo as out-of-store symlinks, so they stay
+ * writable in place - an in-place edit is the real backdoor here (the guard script gated the key
+ * read, the caller script could be swapped for one that leaks it). Gate file writes and the
+ * shell-side rm/mv/redirect path alike.
+ */
+const DOTFILES = join(HOME, ".os-setup");
+const AGENT_TOOLING_DIRS = both([
+  join(HOME, ".agents", "skills"),
+  piStore("extensions"),
+  // absPath() resolves the out-of-store symlinks, so the repo side needs listing too
+  join(DOTFILES, "home", ".agents", "skills"),
+  join(DOTFILES, "home", ".pi", "agent", "extensions"),
+]);
 
 /** Deterministic path as the tools will see it, with symlinks resolved. */
 export function absPath(p: string, cwd: string): string {
@@ -116,6 +130,7 @@ export function decideWrite(raw: string, cwd: string): Verdict {
   if (ASK_FILES.includes(p)) return { ask: `write to ${p}, which can change process execution` };
   if (WRITE_DENY_FILES.includes(p)) return { deny: `write to a protected credential/config file (${p})` };
   for (const d of WRITE_DENY_DIRS) if (under(p, d)) return { deny: `write inside a protected directory (${d})` };
+  for (const d of AGENT_TOOLING_DIRS) if (under(p, d)) return { ask: `write to agent tooling (${p}), which runs with your permissions` };
   const base = basename(p).toLowerCase();
   if (INSTRUCTION_BASENAMES.has(base)) return { ask: `write to ${base}, which steers future agent behavior` };
   if (!inPiHome(p)) {
@@ -164,7 +179,7 @@ const tokens = (paths: string[]) => {
 /** Shell reads of these are the real exfil path — the file tools gated them, bash did not. */
 const SECRET_TOKENS = tokens(SECRET_FILES);
 const CONTROL_TOKENS = tokens(CONTROL_FILES);
-const SENSITIVE_TOKENS = tokens([...WRITE_DENY_FILES, ...WRITE_DENY_DIRS, ...ASK_FILES].filter((p) => !CONTROL_FILES.includes(p)));
+const SENSITIVE_TOKENS = tokens([...WRITE_DENY_FILES, ...WRITE_DENY_DIRS, ...ASK_FILES, ...AGENT_TOOLING_DIRS].filter((p) => !CONTROL_FILES.includes(p)));
 
 /**
  * Shell-side counterpart to decideWrite: same paths, since `sed -i`/`tee`/`>`
