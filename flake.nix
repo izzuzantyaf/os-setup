@@ -1,5 +1,5 @@
 {
-  description = "Izzu's darwin system";
+  description = "Izzu's machines: ZuMac (nix-darwin) and the Ubuntu VPS (home-manager)";
 
   inputs = {
     # Use `github:NixOS/nixpkgs/nixpkgs-26.05-darwin` to use Nixpkgs 26.05.
@@ -19,6 +19,11 @@
       # The one username line to change if this isn't your machine.
       # bootstrap.sh offers to rewrite this for you if your macOS username differs.
       user = "izzu";
+      # The one username line for the VPS. Ubuntu VPS bootstrap.sh rewrites it
+      # if the login user differs.
+      vpsUser = "root";
+      # Flip to "aarch64-linux" for an ARM VPS.
+      vpsSystem = "x86_64-linux";
     in
     {
       darwinConfigurations."ZuMac" = nix-darwin.lib.darwinSystem {
@@ -36,6 +41,13 @@
             home-manager.overwriteBackup = true;
           }
         ];
+      };
+
+      # Ubuntu VPS: Home Manager standalone, no NixOS, no nix-darwin.
+      homeConfigurations.vps = home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs { system = vpsSystem; };
+        extraSpecialArgs = { user = vpsUser; };
+        modules = [ ./home-vps.nix ];
       };
     };
 }
