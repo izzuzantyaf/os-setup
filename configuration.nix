@@ -171,6 +171,7 @@
       "zoom"
       "hermes-desktop"
       "vorssaint"
+      "automic-vault/isotopes/automic-vault"
     ];
   };
 }
