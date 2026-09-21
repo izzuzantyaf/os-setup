@@ -18,6 +18,12 @@ in
     lazygit
     # the font everything renders in
     nerd-fonts.jetbrains-mono
+    # one-word entry point for this repo: `zu rebuild`, `zu bootstrap`, `zu run`
+    (writeShellScriptBin "zu" ''
+      set -euo pipefail
+      cd ~/.os-setup
+      exec ./''${1:-rebuild}.sh "''${@:2}"
+    '')
   ];
   fonts.fontconfig.enable = true;
 
