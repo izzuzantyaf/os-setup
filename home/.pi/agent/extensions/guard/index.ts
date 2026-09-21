@@ -4,15 +4,16 @@
  * Ported from Hermes Agent's defaults (hermes-agent.nousresearch.com/docs/user-guide/security):
  *   - read-deny: secret stores + project env files
  *   - write-deny: credential/system paths (file tools, no prompt, no override)
- *   - write-ask:  ~/.ssh/config + agent-instruction files + project config trees
+ *   - write-ask:  ~/.ssh/config + shell profiles + agent-instruction files + project `.pi` trees
  *   - shell:      always-on floor (no override) + approval for writes to protected paths
+ * Agent tooling (~/.pi/agent/extensions, ~/.agents/skills) is left writable: the agent maintains itself.
  *
  * This is NOT a security boundary. `bash` runs as you; a determined model can
  * shell out around every check below, exactly as Hermes documents for itself.
  * User-typed `!` commands are intentionally not gated: that's you, not the agent.
  *
  * ponytail: skipped Hermes layers — approvals.mode (smart LLM risk scoring),
- * session/permanent allowlists, grep/find result filtering, pipe-to-shell and
+ * session/permanent allowlists, pipe-to-shell and
  * SQL/docker/sudo approval patterns, powershell tool, container backends.
  * Escape hatch: PI_GUARDS=off (the analog of Hermes --yolo).
  */
@@ -36,14 +37,19 @@ const both = (paths: string[]) => [...new Set(paths.flatMap((p) => [p, real(p)])
 
 const under = (p: string, dir: string) => p === dir || p.startsWith(dir + sep);
 const PI_HOME = resolve(process.env.PI_CODING_AGENT_DIR ?? join(HOME, ".pi", "agent"));
-const PI_HOMES = both([PI_HOME]);
-const inPiHome = (p: string) => PI_HOMES.some((h) => under(p, h));
 const piStore = (...f: string[]) => join(PI_HOME, ...f);
+/**
+ * home-manager links every pi file back into the dotfiles repo, so the store-side spelling of a
+ * pi path resolves elsewhere on disk. Resolve one known file to learn pi home's real owner, or
+ * the `.pi` segment rule below would ask on every write to pi's own config.
+ */
+const PI_HOMES = both([PI_HOME, dirname(real(piStore("settings.json")))]);
+const inPiHome = (p: string) => PI_HOMES.some((h) => under(p, h));
 
-/** Shell profiles can carry API keys (TypeSafe etc.). Tooling reads its key from the keychain instead, so deny these both ways. */
+/** Shell profiles run on every new shell, so writes are approval-gated. Reads are open: no secrets live here, keys come from the keychain. */
 const SHELL_PROFILES = [join(HOME, ".zprofile"), join(HOME, ".zshenv"), join(HOME, ".zshrc"), join(HOME, ".bash_profile"), join(HOME, ".bashrc"), join(HOME, ".profile"), join(HOME, ".config", "zsh", ".zshrc")];
 /** Hermes: credential/secret stores — read-denied and write-denied. */
-const SECRET_FILES = both([piStore("auth.json"), piStore("models.json"), piStore("models-store.json"), piStore(".env"), ...SHELL_PROFILES]);
+const SECRET_FILES = both([piStore("auth.json"), piStore("models.json"), piStore("models-store.json"), piStore(".env")]);
 /** Hermes: control files — read-denied, hard-blocked for the agent, edit them yourself. */
 const CONTROL_FILES = both([piStore("trust.json")]);
 
@@ -82,24 +88,10 @@ const WRITE_DENY_DIRS = both([
 const ENV_BASENAMES = new Set([".env", ".env.local", ".env.development", ".env.production", ".env.test", ".env.staging", ".envrc"]);
 
 /** Hermes: not hard-blocked, but a human must confirm — they can steer execution/future turns. */
-/** settings.json is agent-readable; writes still need a human because it steers every future session. */
-const ASK_FILES = both([join(HOME, ".ssh", "config"), piStore("settings.json")]);
+const ASK_FILES = both([join(HOME, ".ssh", "config"), ...SHELL_PROFILES]);
 const INSTRUCTION_BASENAMES = new Set(["agents.md", "agents.override.md", "claude.md", "soul.md", ".cursorrules"]);
-const CONFIG_SEGMENTS = new Set([".pi", ".agents"]);
-/**
- * Agent tooling itself. These live in the dotfiles repo as out-of-store symlinks, so they stay
- * writable in place - an in-place edit is the real backdoor here (the guard script gated the key
- * read, the caller script could be swapped for one that leaks it). Gate file writes and the
- * shell-side rm/mv/redirect path alike.
- */
-const DOTFILES = join(HOME, ".os-setup");
-const AGENT_TOOLING_DIRS = both([
-  join(HOME, ".agents", "skills"),
-  piStore("extensions"),
-  // absPath() resolves the out-of-store symlinks, so the repo side needs listing too
-  join(DOTFILES, "home", ".agents", "skills"),
-  join(DOTFILES, "home", ".pi", "agent", "extensions"),
-]);
+/** `.agents` is deliberately absent: that tree is agent tooling, which is allowed (see the ask-list above). */
+const CONFIG_SEGMENTS = new Set([".pi"]);
 
 /** Deterministic path as the tools will see it, with symlinks resolved. */
 export function absPath(p: string, cwd: string): string {
@@ -130,7 +122,6 @@ export function decideWrite(raw: string, cwd: string): Verdict {
   if (ASK_FILES.includes(p)) return { ask: `write to ${p}, which can change process execution` };
   if (WRITE_DENY_FILES.includes(p)) return { deny: `write to a protected credential/config file (${p})` };
   for (const d of WRITE_DENY_DIRS) if (under(p, d)) return { deny: `write inside a protected directory (${d})` };
-  for (const d of AGENT_TOOLING_DIRS) if (under(p, d)) return { ask: `write to agent tooling (${p}), which runs with your permissions` };
   const base = basename(p).toLowerCase();
   if (INSTRUCTION_BASENAMES.has(base)) return { ask: `write to ${base}, which steers future agent behavior` };
   if (!inPiHome(p)) {
@@ -179,7 +170,7 @@ const tokens = (paths: string[]) => {
 /** Shell reads of these are the real exfil path — the file tools gated them, bash did not. */
 const SECRET_TOKENS = tokens(SECRET_FILES);
 const CONTROL_TOKENS = tokens(CONTROL_FILES);
-const SENSITIVE_TOKENS = tokens([...WRITE_DENY_FILES, ...WRITE_DENY_DIRS, ...ASK_FILES, ...AGENT_TOOLING_DIRS].filter((p) => !CONTROL_FILES.includes(p)));
+const SENSITIVE_TOKENS = tokens([...WRITE_DENY_FILES, ...WRITE_DENY_DIRS, ...ASK_FILES].filter((p) => !CONTROL_FILES.includes(p)));
 
 /**
  * Shell-side counterpart to decideWrite: same paths, since `sed -i`/`tee`/`>`
@@ -202,8 +193,26 @@ export function decideShell(cmd: string): Verdict {
 
 // --- extension --------------------------------------------------------------
 
-const PATH_TOOLS = new Set(["read", "grep", "find", "ls"]);
+const READ_TOOLS = new Set(["read"]);
+/** grep/find/ls run unfiltered at call time; their output is scrubbed in tool_result instead. */
+const RESULT_TOOLS = new Set(["grep", "find", "ls"]);
 const WRITE_TOOLS = new Set(["write", "edit"]);
+
+/**
+ * grep -r prints `path:line:match`, find/ls print bare paths — any line naming a
+ * read-denied file is redacted, so a recursive search cannot surface `.env` contents.
+ * ponytail: line-level token match, not a parser — a line merely quoting ".env" is
+ * redacted too (fail-safe direction). Upgrade: parse the tool's structured output.
+ */
+export function redactResults(text: string, cwd: string): string {
+  return text
+    .split("\n")
+    .map((line) => {
+      const cands = [line.match(/^(.*?):\d+[:-]/)?.[1], ...line.split(/\s+/)];
+      return cands.some((c) => c && decideRead(c, cwd)) ? "[redacted: read-denied file]" : line;
+    })
+    .join("\n");
+}
 
 export default function (pi: ExtensionAPI) {
   if (process.env.PI_GUARDS === "off") return;
@@ -226,19 +235,22 @@ export default function (pi: ExtensionAPI) {
       if (verdict) return approve(verdict.ask, cmd);
     }
 
-    if (WRITE_TOOLS.has(event.toolName) || PATH_TOOLS.has(event.toolName)) {
+    if (WRITE_TOOLS.has(event.toolName) || READ_TOOLS.has(event.toolName)) {
       const raw = String((event.input as { path?: unknown }).path ?? ".");
       if (WRITE_TOOLS.has(event.toolName)) {
         const verdict = decideWrite(raw, ctx.cwd);
         if (verdict && "deny" in verdict) return block(`Blocked: ${verdict.deny}. Do not retry or rephrase; the user must do this.`);
         if (verdict) return approve(verdict.ask, raw);
       } else {
-        // grep/find/ls are gated on their search root only, so a recursive search
-        // from a parent can still surface a denied file's contents.
-        // ponytail: no per-result filtering (Hermes filters grep hits). Add if it bites.
+        // only `read` is gated here; grep/find/ls output is scrubbed by the tool_result handler below
         const why = decideRead(raw, ctx.cwd);
         if (why) return block(`Blocked: ${why}. Ask the user for the value instead.`);
       }
     }
+  });
+
+  pi.on("tool_result", async (event, ctx) => {
+    if (!RESULT_TOOLS.has(event.toolName)) return;
+    return { content: event.content.map((c) => (c.type === "text" ? { ...c, text: redactResults(c.text, ctx.cwd) } : c)) };
   });
 }
