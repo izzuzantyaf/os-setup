@@ -172,6 +172,7 @@
       "hermes-desktop"
       "vorssaint"
       "automic-vault/isotopes/automic-vault"
+      "aldente"
     ];
   };
 }
