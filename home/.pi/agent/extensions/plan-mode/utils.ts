@@ -95,8 +95,10 @@ const SAFE_PATTERNS = [
 ];
 
 export function isSafeCommand(command: string): boolean {
-	const isDestructive = DESTRUCTIVE_PATTERNS.some((p) => p.test(command));
-	const isSafe = SAFE_PATTERNS.some((p) => p.test(command));
+	// RTK rewrites bash commands (`git status` -> `rtk git status`); judge the underlying command.
+	const bare = command.replace(/^\s*rtk\s+/, "");
+	const isDestructive = DESTRUCTIVE_PATTERNS.some((p) => p.test(bare));
+	const isSafe = SAFE_PATTERNS.some((p) => p.test(bare));
 	return !isDestructive && isSafe;
 }
 
