@@ -131,7 +131,6 @@
       "rust"
       "rustup"
       "wget"
-      "yarn"
       "yt-dlp"
       "mas"
       "mlx-lm"
