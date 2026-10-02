@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.85.1",
+  "lastChangelogVersion": "0.99.2",
   "theme": "claude-code",
   "defaultProvider": "9router",
   "defaultModel": "ocg/deepseek-flash",
@@ -20,5 +20,8 @@
   "terminal": {
     "showTerminalProgress": true
   },
-  "hideThinkingBlock": true
+  "hideThinkingBlock": true,
+  "extensions": [
+    "-builtin:mcp"
+  ]
 }

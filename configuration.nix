@@ -139,6 +139,7 @@
       "ghostscript"
       "herdr"
       "nvim"
+      "gh"
     ];
     casks = [
       "antigravity-cli"
@@ -152,6 +153,7 @@
       "cursor"
       "discord"
       "figma"
+      "firefox"
       "google-chrome"
       "google-drive"
       "google-gemini"
@@ -164,15 +166,14 @@
       "orbstack"
       "protonvpn"
       "rapidapi"
-      "transmission"
       "wezterm"
       "zed"
       "zen"
       "zoom"
       "hermes-desktop"
       "vorssaint"
-      "automic-vault/isotopes/automic-vault"
       "aldente"
+      "dbx"
     ];
   };
 }
