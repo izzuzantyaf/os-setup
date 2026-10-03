@@ -144,7 +144,6 @@
       "antigravity-cli"
       "antigravity-ide"
       "audacity"
-      "beekeeper-studio"
       "blip"
       "brave-browser"
       "cloudflare-warp"
