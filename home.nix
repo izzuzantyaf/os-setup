@@ -112,6 +112,9 @@ in
   # reading that tree get it too. No secret here; the key stays in the keychain.
   home.file.".agents/skills/typesafe".source =
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.agents/skills/typesafe";
+  # hand-written Penpot skill: MCP call order, layout gotchas, build-script skeleton.
+  home.file.".agents/skills/penpot".source =
+    config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.agents/skills/penpot";
 
   home.file.".gemini/GEMINI.md".source =
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/AGENTS.md";
