@@ -9,11 +9,11 @@ Pengetahuan **alat**, bukan proyek. Aturan spesifik proyek tinggal di repo masin
 
 ## Panggilan pertama
 
-1. `local-mcp_high_level_overview` — wajib, sekali per sesi.
-2. `local-mcp_penpot_api_info` untuk tipe yang belum dikenal, **sebelum** menulis kode.
+1. `penpot_high_level_overview` — wajib, sekali per sesi.
+2. `penpot_penpot_api_info` untuk tipe yang belum dikenal, **sebelum** menulis kode.
    Dokumentasinya tipis di titik penting (`lineHeight: string` itu multiplier atau px?),
    jadi siap menyimpulkan dari perilaku.
-3. `local-mcp_execute_code` untuk menjalankan.
+3. `penpot_execute_code` untuk menjalankan.
 
 Kode dijalankan sebagai **body sebuah fungsi** — `return` di akhir itu sah, dan itulah cara
 mengambil hasil.
