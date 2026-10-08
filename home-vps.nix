@@ -19,6 +19,7 @@ in
     # cli i use constantly
     ripgrep fd fzf jq lazygit gh
     tmux btop rsync unzip  # tmux: no GUI on the VPS, so it's the terminal multiplexer
+    imagemagick
     # dev tools - the mac brews' nixpkgs twins
     ffmpeg
     go
@@ -117,6 +118,12 @@ in
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.pi/agent/extensions/modes";
   home.file.".pi/agent/extensions/big-pi-logo.ts".source =
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.pi/agent/extensions/big-pi-logo.ts";
+  # herdr runs on the VPS too, so its blocked-state bridge belongs here.
+  home.file.".pi/agent/extensions/herdr-blocked.ts".source =
+    config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.pi/agent/extensions/herdr-blocked.ts";
+  # hand-written rtk shim; here rtk comes from nixpkgs, on the mac from homebrew.
+  home.file.".pi/agent/extensions/rtk.ts".source =
+    config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.pi/agent/extensions/rtk.ts";
 
   home.file.".agents/skills/typesafe".source =
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.agents/skills/typesafe";
