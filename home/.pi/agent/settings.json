@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.99.2",
+  "lastChangelogVersion": "1.0.2",
   "theme": "claude-code",
   "defaultProvider": "9router",
   "defaultModel": "ocg/deepseek-flash",
@@ -12,7 +12,6 @@
     "9router/ocg/deepseek-v4-flash"
   ],
   "packages": [
-    "npm:pi-mcp-adapter",
     "npm:pi-web-access"
   ],
   "editorPaddingX": 1,
@@ -21,7 +20,9 @@
     "showTerminalProgress": true
   },
   "hideThinkingBlock": true,
-  "extensions": [
-    "-builtin:mcp"
-  ]
+  "tuiMode": "fullscreen",
+  "followUpMode": "one-at-a-time",
+  "steeringMode": "one-at-a-time",
+  "transport": "auto",
+  "doubleEscapeAction": "tree"
 }
