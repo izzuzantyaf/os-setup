@@ -21,7 +21,7 @@
       user = "izzu";
       # The one username line for the VPS. Ubuntu VPS bootstrap.sh rewrites it
       # if the login user differs.
-      vpsUser = "root";
+      vpsUser = "izzu";
       # Flip to "aarch64-linux" for an ARM VPS.
       vpsSystem = "x86_64-linux";
     in

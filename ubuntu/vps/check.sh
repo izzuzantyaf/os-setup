@@ -1,7 +1,15 @@
 #!/usr/bin/env bash
-# Runnable self-check for the VPS setup: `bash ubuntu/vps/check.sh`.
+# Runnable self-check for the VPS setup. Needs root for the sshd/ufw/systemd
+# checks, so run it with sudo:
+#   sudo bash ubuntu/vps/check.sh
 # Exits non-zero when something drifted from what the config claims.
 set -uo pipefail
+
+# Under sudo $HOME is /root, but the dotfile checks are about the login user.
+if [ -n "${SUDO_USER:-}" ]; then
+  HOME="$(getent passwd "$SUDO_USER" | cut -d: -f6)"
+  export HOME
+fi
 
 fails=0
 check() {

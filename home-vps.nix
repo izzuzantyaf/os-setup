@@ -1,4 +1,5 @@
-# Headless sibling of home.nix for the Ubuntu VPS (Hetzner, root-only, 24.04).
+# Headless sibling of home.nix for the Ubuntu VPS (Hetzner, Ubuntu 24.04, login
+# user izzu - root only appears behind sudo for system.sh).
 # Managed with Home Manager standalone: no NixOS, the Ubuntu kernel and apt stay.
 # Bootstrap a fresh box with ubuntu/vps/bootstrap.sh, update with ubuntu/vps/rebuild.sh.
 { config, pkgs, user, ... }:

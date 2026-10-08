@@ -1,30 +1,46 @@
 #!/usr/bin/env bash
-# Takes a fresh Ubuntu VPS (Hetzner, root-only, 24.04 x86_64) from nothing to a
-# built Home Manager config. Run once, then use ./rebuild.sh (`zu rebuild`) for
-# every later change.
+# Takes a fresh Ubuntu VPS (Hetzner, 24.04 x86_64) from nothing to a
+# built Home Manager config. Run once as the login user (izzu, with sudo), then
+# use ./rebuild.sh (`zu rebuild`) for every later change. Do NOT run it as root:
+# it writes into $HOME, so root would build the config for /root instead.
 #
 #   git clone <this repo> ~/.os-setup && bash ~/.os-setup/ubuntu/vps/bootstrap.sh
 #
 # Ubuntu keeps its kernel, cloud-init and apt; Nix only manages the userspace
 # config in home-vps.nix. The system bits home-manager cannot touch (sshd, ufw,
-# apt, fail2ban) are in system.sh below.
+# apt, fail2ban) are in system.sh below, which bootstrap runs through sudo.
 set -euo pipefail
+
+if [ "$(id -u)" -eq 0 ]; then
+  echo "Run this as the login user (izzu), not root: everything lands in \$HOME." >&2
+  exit 1
+fi
+if ! sudo -v; then
+  echo "This needs sudo for apt, the Nix installer and system.sh." >&2
+  exit 1
+fi
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd -P)"
 
 echo "==> Step 1: apt prerequisites"
-export DEBIAN_FRONTEND=noninteractive
-apt-get update -qq
-apt-get -y -qq install curl git ca-certificates
+sudo env DEBIAN_FRONTEND=noninteractive apt-get update -qq
+sudo env DEBIAN_FRONTEND=noninteractive apt-get -y -qq install curl git ca-certificates
 
 echo "==> Step 2: Determinate Nix"
-if command -v nix >/dev/null 2>&1; then
+# Check the system profile too: a box where Nix is installed but not yet sourced
+# into this shell must not be reinstalled over.
+if [ -x /nix/var/nix/profiles/default/bin/nix ] || command -v nix >/dev/null 2>&1; then
   echo "    nix already installed, skipping"
 else
   curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix \
-    | sh -s -- install linux --no-confirm
+    | sudo sh -s -- install linux --no-confirm
+fi
+if [ -r /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]; then
   # shellcheck disable=SC1091
   . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+else
+  echo "    no nix-daemon profile found - is Nix installed?" >&2
+  exit 1
 fi
 
 echo "==> Step 3: symlink this repo to ~/.os-setup"
@@ -56,7 +72,8 @@ else
 fi
 
 echo "==> Step 5: system layer (sshd, ufw, fail2ban, unattended-upgrades)"
-bash "$DIR/ubuntu/vps/system.sh"
+# system.sh refuses to run as non-root, and it wants the Tailscale key if set.
+sudo env "TAILSCALE_AUTHKEY=${TAILSCALE_AUTHKEY:-}" bash "$DIR/ubuntu/vps/system.sh"
 
 echo "==> Step 6: first home-manager switch (pinned to home-manager release-26.05)"
 # home-manager isn't installed yet on a fresh box, so run it straight from the
@@ -71,8 +88,8 @@ if [ ! -x "$ZSH_BIN" ]; then
   echo "    $ZSH_BIN missing - did the switch in step 6 succeed?"
   exit 1
 fi
-grep -qxF "$ZSH_BIN" /etc/shells || echo "$ZSH_BIN" >> /etc/shells
-chsh -s "$ZSH_BIN" "$REAL_USER"
+grep -qxF "$ZSH_BIN" /etc/shells || echo "$ZSH_BIN" | sudo tee -a /etc/shells >/dev/null
+sudo chsh -s "$ZSH_BIN" "$REAL_USER"
 
 echo "==> Done. Use ./rebuild.sh (or \`zu rebuild\`) for future changes."
 echo "    Reboot when convenient: apt may have a new kernel (check /var/run/reboot-required)."
