@@ -83,7 +83,6 @@
         "/Applications/Brave Browser.app"
         "/Applications/Figma.app"
         "/Applications/WezTerm.app"
-        "/Applications/Zed.app"
         "/Applications/Gemini.app"
         "/Applications/Claude.app"
         "/Applications/RapidAPI.app"
@@ -136,6 +135,7 @@
       "mlx-lm"
       "pi-coding-agent"
       "ghostscript"
+      "imagemagick"
       "herdr"
       "nvim"
       "gh"
@@ -160,6 +160,7 @@
       "kimi"
       "obs"
       "obsidian"
+      "open-design"
       "openvpn-connect"
       "orbstack"
       "protonvpn"
@@ -170,7 +171,6 @@
       "zoom"
       "hermes-desktop"
       "vorssaint"
-      "aldente"
       "dbx"
     ];
   };
