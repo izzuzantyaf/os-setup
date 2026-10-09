@@ -4,7 +4,6 @@
       "name": "9Router (local)",
       "baseUrl": "http://localhost:20128/v1",
       "api": "openai-completions",
-      "apiKey": "sk-259cdc8fcce40ad8-i452tt-48fb867a",
       "compat": {
         "supportsDeveloperRole": false,
         "supportsReasoningEffort": false
