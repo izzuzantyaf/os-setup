@@ -75,7 +75,7 @@ in
       add_newline = false;
       format = "$username@$hostname$directory$git_branch$git_status$cmd_duration$line_break$character";
       username = { show_always = true; style_user = "bold white"; format = "[$user]($style)"; };
-      hostname = { ssh_only = false; style = "white"; format = "[$hostname]($style) "; };
+      hostname = { ssh_only = false; style = "bold white"; format = "[$hostname]($style) "; };
       character = {
         success_symbol = "[❯](purple)";
         error_symbol = "[❯](red)";
