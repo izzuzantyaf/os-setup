@@ -12,9 +12,13 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
+
+    # The VPS tracks unstable: the release branches lag too far behind for
+    # things like neovim, bun and opencode. The Mac stays on the pinned release.
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   };
 
-  outputs = inputs@{ self, nix-darwin, nix-homebrew, home-manager, nixpkgs }:
+  outputs = inputs@{ self, nix-darwin, nix-homebrew, home-manager, nixpkgs, nixpkgs-unstable }:
     let
       # The one username line to change if this isn't your machine.
       # bootstrap.sh offers to rewrite this for you if your macOS username differs.
@@ -45,7 +49,7 @@
 
       # Ubuntu VPS: Home Manager standalone, no NixOS, no nix-darwin.
       homeConfigurations.vps = home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs { system = vpsSystem; };
+        pkgs = import nixpkgs-unstable { system = vpsSystem; };
         extraSpecialArgs = { user = vpsUser; };
         modules = [ ./home-vps.nix ];
       };

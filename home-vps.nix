@@ -15,6 +15,10 @@ in
   home.username = user;
   home.homeDirectory = if user == "root" then "/root" else "/home/${user}";
   home.stateVersion = "24.11";
+  # nixpkgs here is unstable (see flake.nix), home-manager is still the 26.05
+  # release, so its release check would warn on every rebuild. The modules used
+  # below are version-agnostic; the check-off is deliberate.
+  home.enableNixpkgsReleaseCheck = false;
   home.sessionPath = [ "$HOME/.cargo/bin" ];
   home.packages = with pkgs; [
     # cli i use constantly
