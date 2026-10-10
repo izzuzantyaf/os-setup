@@ -45,6 +45,12 @@ check "sshd: password auth off" bash -c 'sshd -T 2>/dev/null | grep -q "^passwor
 check "sshd: root is key-only" bash -c 'sshd -T 2>/dev/null | grep -qE "^permitrootlogin (prohibit|without)-password$"'
 check "ufw active" bash -c 'ufw status 2>/dev/null | grep -q "^Status: active"'
 check "fail2ban running" systemctl is-active --quiet fail2ban
+check "tailscale connected to tailnet" bash -c 'grep -q "\"BackendState\": *\"Running\"" <<<"$(tailscale status --json 2>/dev/null)"'
+# Catches the drift a console rename or a fresh re-auth would cause: the node
+# must advertise the name we pinned on the client (see system.sh).
+check "tailscale hostname = zuserver" bash -c 'grep -q "\"DNSName\": \"zuserver\." <<<"$(tailscale status --json 2>/dev/null)"'
+check "docker: port non-mail ditutup dari publik (ipv4)" iptables -C DOCKER-USER -i eth0 -m comment --comment "os-setup: sisanya tailnet-only" -j DROP
+check "docker: port non-mail ditutup dari publik (ipv6)" ip6tables -C DOCKER-USER -i eth0 -m comment --comment "os-setup: sisanya tailnet-only" -j DROP
 
 echo
 if [ "$fails" -eq 0 ]; then

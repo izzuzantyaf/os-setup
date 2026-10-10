@@ -60,6 +60,29 @@ ufw allow 80/tcp
 ufw allow 443/tcp
 ufw --force enable
 
+echo "==> docker: hanya port mail yang publik, sisanya tailnet"
+# Docker publishes ports through its own DNAT rules, so the traffic is forwarded
+# to the container via FORWARD and ufw's INPUT rules never see it -- a published
+# port stays internet-reachable even though ufw denies everything. DOCKER-USER is
+# the only hook that runs before Docker's accept rules.
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+install -m755 "$SCRIPT_DIR/docker-tailnet-only.sh" /usr/local/sbin/docker-tailnet-only.sh
+mkdir -p /etc/systemd/system/docker.service.d
+cat > /etc/systemd/system/docker.service.d/tailnet-only.conf <<'CONF'
+[Service]
+# Docker rebuilds its iptables chains on every start, so re-apply ours right
+# after. The "-" keeps a failure here from marking docker.service failed.
+ExecStartPost=-/usr/local/sbin/docker-tailnet-only.sh
+CONF
+systemctl daemon-reload
+# Apply now without restarting docker: a restart would bounce every container,
+# including the mail server, for a rule set that does not need it.
+if systemctl is-active --quiet docker; then
+  /usr/local/sbin/docker-tailnet-only.sh
+else
+  echo "    docker belum jalan, rule dipasang saat dockerd start"
+fi
+
 echo "==> fail2ban: ban ssh brute force"
 systemctl enable --now fail2ban
 
@@ -78,11 +101,30 @@ else
 fi
 
 # Everything else stays private. Tailscale is the way to reach services on this
-# box without opening ports: TAILSCALE_AUTHKEY=tskey-... bash system.sh
-if [ -n "${TAILSCALE_AUTHKEY:-}" ]; then
+# box without opening ports. The reusable auth key is read from a root-only env
+# file (never in git):
+#   echo 'TAILSCALE_AUTHKEY=tskey-auth-...' | sudo install -m600 /dev/stdin /etc/os-setup.tailscale.env
+# A key in the environment still wins, for one-off runs.
+if [ -z "${TAILSCALE_AUTHKEY:-}" ] && [ -f /etc/os-setup.tailscale.env ]; then
+  . /etc/os-setup.tailscale.env
+fi
+# An already-connected node is left alone, so this block is safe to re-run.
+# grep reads a here-string instead of a pipe on purpose: -q exits at the first
+# match, and pipefail would then turn tailscale's SIGPIPE into a failure.
+#
+# The name is pinned on the client, not just in the admin console: a console
+# rename does not survive a fresh re-auth (a re-register re-advertises the OS
+# hostname, which here is still the provider's "vmi2359060").
+TAILSCALE_HOSTNAME="${TAILSCALE_HOSTNAME:-zuserver}"
+if [ -z "${TAILSCALE_AUTHKEY:-}" ]; then
+  echo "==> tailscale skipped (no TAILSCALE_AUTHKEY env or /etc/os-setup.tailscale.env)"
+elif grep -q '"BackendState": *"Running"' <<<"$(tailscale status --json 2>/dev/null)"; then
+  # Keep the advertised name in sync even on an already-running node, so a
+  # console rename or an OS hostname change cannot silently take over.
+  tailscale set --hostname "$TAILSCALE_HOSTNAME" >/dev/null
+  echo "==> tailscale already connected (hostname: $TAILSCALE_HOSTNAME)"
+else
   echo "==> tailscale"
   command -v tailscale >/dev/null || curl -fsSL https://tailscale.com/install.sh | sh
-  tailscale up --authkey "$TAILSCALE_AUTHKEY" --ssh
-else
-  echo "==> tailscale skipped (set TAILSCALE_AUTHKEY to reach this box privately)"
+  tailscale up --authkey "$TAILSCALE_AUTHKEY" --ssh --hostname="$TAILSCALE_HOSTNAME"
 fi
