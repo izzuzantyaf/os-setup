@@ -34,6 +34,7 @@ check "zu on PATH" bash -lc 'command -v zu'
 check "herdr runs (prebuilt binary from pkgs/herdr.nix)" bash -lc 'herdr --version'
 check "herdr config symlinked into the repo" bash -c 'readlink -f ~/.config/herdr/config.toml | grep -q "^$HOME/.os-setup/"'
 check "rtk on PATH" bash -lc 'command -v rtk'
+check "yazi on PATH (pdf preview needs pdftoppm too)" bash -lc 'command -v yazi pdftoppm'
 check "pi (pi-coding-agent) on PATH" bash -lc 'command -v pi'
 check "hermes-agent installed by system.sh" bash -lc 'command -v hermes'
 # sshd -T needs the privilege separation dir, which systemd only creates while

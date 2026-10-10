@@ -24,6 +24,7 @@ in
     # cli i use constantly
     ripgrep fd fzf jq lazygit gh
     tmux btop rsync unzip  # tmux: no GUI on the VPS, so it's the terminal multiplexer
+    yazi poppler-utils  # yazi: TUI file manager; poppler-utils = pdf preview
     imagemagick
     # dev tools - the mac brews' nixpkgs twins
     ffmpeg
