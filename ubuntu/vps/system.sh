@@ -54,6 +54,10 @@ echo "==> ufw: deny everything except ssh"
 ufw --force default deny incoming
 ufw --force default allow outgoing
 ufw allow "$SSH_PORT"/tcp
+# Docker-published ports reach FORWARD via DNAT and skip INPUT, but host nginx
+# serves 80/443 for the vhosts, so they must be allowed here too.
+ufw allow 80/tcp
+ufw allow 443/tcp
 ufw --force enable
 
 echo "==> fail2ban: ban ssh brute force"
