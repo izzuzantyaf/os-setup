@@ -22,17 +22,24 @@ check() {
   fi
 }
 
-check "nvim config symlinked into the repo" bash -c 'readlink -f ~/.config/nvim | grep -q "^$HOME/.os-setup/"'
-check "pi settings symlinked into the repo" bash -c 'readlink -f ~/.pi/agent/settings.json | grep -q "^$HOME/.os-setup/"'
-check "pi extensions symlinked into the repo" bash -c 'readlink -f ~/.pi/agent/extensions/guard | grep -q "^$HOME/.os-setup/"'
-check "AGENTS.md shim for codex" bash -c 'readlink -f ~/.codex/AGENTS.md | grep -q "^$HOME/.os-setup/"'
-check "AGENTS.md shim for gemini" bash -c 'readlink -f ~/.gemini/GEMINI.md | grep -q "^$HOME/.os-setup/"'
-check "typesafe skill symlinked into the repo" bash -c 'readlink -f ~/.agents/skills/typesafe | grep -q "^$HOME/.os-setup/"'
+# The deployed files are home-manager artefacts (nix-store copies, or mkOutOfStoreSymlink
+# links back into the repo). Comparing content is the assertion that actually matters:
+# the old `readlink -f | grep ~/.os-setup/` could never pass, because readlink resolves the
+# repo's own ~/.os-setup symlink away to ~/os-setup before the grep ever sees it.
+check "nvim config matches the repo" diff -rq ~/.config/nvim "$HOME/.os-setup/home/.config/nvim"
+check "pi settings match the repo" cmp -s ~/.pi/agent/settings.json "$HOME/.os-setup/home/.pi/agent/settings.json"
+check "pi extensions match the repo" diff -rq ~/.pi/agent/extensions/guard "$HOME/.os-setup/home/.pi/agent/extensions/guard"
+check "AGENTS.md shim for codex matches repo" cmp -s ~/.codex/AGENTS.md "$HOME/.os-setup/home/AGENTS.md"
+check "AGENTS.md shim for gemini matches repo" cmp -s ~/.gemini/GEMINI.md "$HOME/.os-setup/home/AGENTS.md"
+check "typesafe skill matches the repo" diff -rq ~/.agents/skills/typesafe "$HOME/.os-setup/home/.agents/skills/typesafe"
 check "starship config generated" test -f ~/.config/starship.toml
-check "zsh starts" zsh -lc true
+# zsh is a Nix user-profile binary, so root's PATH (sudo's secure_path) cannot see it:
+# "command not found". Run it as the login user, which is where it actually has to work.
+LOGIN_USER="$(stat -c %U "$HOME" 2>/dev/null || echo root)"
+check "zsh starts (as $LOGIN_USER)" runuser -l "$LOGIN_USER" -c 'zsh -lc true'
 check "zu on PATH" bash -lc 'command -v zu'
 check "herdr runs (prebuilt binary from pkgs/herdr.nix)" bash -lc 'herdr --version'
-check "herdr config symlinked into the repo" bash -c 'readlink -f ~/.config/herdr/config.toml | grep -q "^$HOME/.os-setup/"'
+check "herdr config matches the repo" cmp -s ~/.config/herdr/config.toml "$HOME/.os-setup/home/.config/herdr/config.toml"
 check "rtk on PATH" bash -lc 'command -v rtk'
 check "yazi on PATH (pdf preview needs pdftoppm too)" bash -lc 'command -v yazi pdftoppm'
 check "pi (pi-coding-agent) on PATH" bash -lc 'command -v pi'
